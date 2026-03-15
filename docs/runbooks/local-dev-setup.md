@@ -14,13 +14,30 @@
 ## 1. Altyapıyı Başlat
 
 ```bash
-# Saydın kök dizininde
+# docker-compose.yml src/Saydin.Services/ dizininde bulunur
+cd src/Saydin.Services
+cp .env.example .env
+# .env dosyasını düzenle — API key'leri doldur (CoinGecko, GoldAPI, Twelve Data)
+
 docker-compose up -d
 
 # Kontrol et
 docker-compose ps
 # postgresql ve redis servislerinin "Up" durumunda olması beklenir
 ```
+
+Başlatılan servisler:
+
+| Servis | URL / Port |
+|--------|-----------|
+| saydin-postgres | localhost:5432 |
+| saydin-redis | localhost:6379 |
+| saydin-pgadmin | http://localhost:5050 |
+| saydin-redis-insight | http://localhost:5540 |
+| aspire-dashboard | http://localhost:18888 |
+| prometheus | http://localhost:9090 |
+| saydin-api | http://localhost:5080 |
+| saydin-price-ingestion | (port expose edilmez) |
 
 ---
 
@@ -50,7 +67,7 @@ INSERT 0 8  ← seed verisi eklendi
 ```bash
 cd src/Saydin.Services
 
-# API servisini başlat (port 5000)
+# API servisini başlat (port 5080)
 dotnet run --project src/Saydin.Api
 
 # Yeni terminal — Ingestion worker'ı başlat
@@ -83,16 +100,16 @@ dotnet user-secrets set "ExternalApis:TwelveData:ApiKey" "<your-key>"
 
 ```bash
 # Health check
-curl http://localhost:5000/health
+curl http://localhost:5080/health
 
 # Asset listesi
-curl http://localhost:5000/v1/assets
+curl http://localhost:5080/v1/assets
 
 # Belirli tarihte fiyat
-curl http://localhost:5000/v1/assets/USDTRY/price/2020-01-01
+curl http://localhost:5080/v1/assets/USDTRY/price/2020-01-01
 
 # "Ya alsaydım?" hesabı
-curl -X POST http://localhost:5000/v1/what-if/calculate \
+curl -X POST http://localhost:5080/v1/what-if/calculate \
   -H "Content-Type: application/json" \
   -H "X-Device-ID: test-device-001" \
   -d '{
@@ -102,6 +119,16 @@ curl -X POST http://localhost:5000/v1/what-if/calculate \
     "amountType": "try"
   }'
 ```
+
+### Scalar API Dokümantasyonu (Development)
+
+API endpoint'lerini tarayıcıdan keşfetmek için:
+
+```
+http://localhost:5080/scalar/v1
+```
+
+> **Not:** Scalar yalnızca `ASPNETCORE_ENVIRONMENT=Development` modunda aktiftir. Docker Compose servisinde varsayılan olarak açıktır.
 
 ---
 
@@ -117,7 +144,7 @@ flutter pub get
 flutter run
 ```
 
-Emülatörden API'ye bağlantı için `lib/core/network/` dosyasında base URL'yi `http://10.0.2.2:5000` (Android) veya `http://localhost:5000` (iOS) olarak ayarla.
+Emülatörden API'ye bağlantı için `lib/core/network/` dosyasında base URL'yi `http://10.0.2.2:5080` (Android) veya `http://localhost:5080` (iOS) olarak ayarla.
 
 ---
 
@@ -146,6 +173,8 @@ flutter test
 | Aspire Dashboard | http://localhost:18888 | — | — |
 | OTLP/gRPC (Aspire) | localhost:4317 | — | — |
 | Prometheus | http://localhost:9090 | — | — |
+| Saydin API | http://localhost:5080 | — | — |
+| Scalar Docs | http://localhost:5080/scalar/v1 | — | — (Development only) |
 
 ### pgAdmin İlk Bağlantı
 pgAdmin açıldığında `servers.json` sayesinde "Saydın PostgreSQL" sunucusu otomatik görünür. Şifreyi elle gir: `saydin_dev`
@@ -177,7 +206,8 @@ Ya da doğrudan `appsettings.Development.json`'da konfigüre edilir (bkz. observ
 
 **PostgreSQL bağlanamıyor:**
 ```bash
-docker-compose logs postgres
+# src/Saydin.Services/ dizininden
+docker-compose logs saydin-postgres
 # "database system is ready" mesajını bekle
 ```
 

@@ -1,6 +1,8 @@
 # Saydın API Sözleşmesi
 
-**Base URL:** `https://api.saydin.app/v1`
+**Base URL (Production):** `https://api.saydin.app/v1`
+**Base URL (Local Dev):** `http://localhost:5080/v1`
+**API Dokümantasyonu (Local Dev):** `http://localhost:5080/scalar/v1` (Development modunda)
 **Format:** JSON
 **Auth (MVP):** `X-Device-ID: <uuid>` header
 **Auth (Phase 2):** `Authorization: Bearer <jwt>`
@@ -176,6 +178,8 @@ Fiyat grafik verisi için aralıklı fiyat listesi.
 
 ## POST /scenarios
 
+> **Henüz implement edilmedi.** Bu endpoint planlı olup geliştirme sırası beklemektedir.
+
 Kullanıcının "ya alsaydım?" senaryosunu kaydeder.
 
 **Auth gerektirir:** `X-Device-ID`
@@ -223,6 +227,8 @@ Kullanıcının "ya alsaydım?" senaryosunu kaydeder.
 
 ## GET /scenarios
 
+> **Henüz implement edilmedi.**
+
 Kullanıcının kayıtlı senaryoları.
 
 **Auth gerektirir:** `X-Device-ID`
@@ -250,6 +256,8 @@ Kullanıcının kayıtlı senaryoları.
 ---
 
 ## DELETE /scenarios/{id}
+
+> **Henüz implement edilmedi.**
 
 Kayıtlı bir senaryoyu siler.
 

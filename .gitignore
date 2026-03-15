@@ -14,3 +14,9 @@ infrastructure/
 .env
 .env.*
 !.env.example
+
+# Postman
+postman/
+
+# Review raporları (lokal, commit edilmez)
+docs/reviews/

@@ -6,6 +6,8 @@
 
 TimescaleDB, PostgreSQL üzerine kurulu bir uzantıdır. Aynı SQL sözdizimini kullanır, ayrı bir veritabanı sistemi gerektirmez. Zaman serisi verilerinde otomatik partisyonlama (hypertable) ile ~10x daha hızlı range query sağlar.
 
+**ORM: Entity Framework Core** (Npgsql sağlayıcısı) kullanılmaktadır. Şema snake_case isimlendirme kuralıyla yönetilir; tablo ve kolon adları otomatik olarak `snake_case`'e dönüştürülür (ör. `PriceDate` → `price_date`). Migration'lar `dotnet ef migrations add` ile `Saydin.Shared` projesine eklenir.
+
 Detay: [ADR-002](../decisions/ADR-002-timescaledb.md)
 
 ---
@@ -54,6 +56,7 @@ CREATE TABLE assets (
 );
 
 -- Seed verisi (migration'da doldurulacak):
+-- TCMB source_id → XML CurrencyCode dönüşümü: 'TP.DK.USD.A' → USD, 'TP.DK.EUR.A' → EUR
 -- ('USDTRY', 'Dolar/TL', 'currency', 'tcmb', 'TP.DK.USD.A')
 -- ('EURTRY', 'Euro/TL', 'currency', 'tcmb', 'TP.DK.EUR.A')
 -- ('XAU_TRY_GRAM', 'Altın (Gram/TL)', 'precious_metal', 'goldapi', 'XAU')

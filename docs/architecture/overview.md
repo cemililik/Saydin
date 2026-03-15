@@ -59,10 +59,11 @@ Saydın, Türk kullanıcılara yönelik bir finansal "ya alsaydım?" (what if) m
 ## Servisler
 
 ### Saydin.Api
-- .NET 10 Minimal API
+- .NET 10 Minimal API, port 5080
 - HTTP endpoint'leri Flutter uygulamasına sunar
 - Hiçbir dış finansal API'ye doğrudan bağlanmaz
-- Redis üzerinden response caching uygular
+- Redis üzerinden response caching uygular (WhatIfCalculator: 1 saat TTL)
+- Scalar API dokümantasyonu: `GET /scalar/v1` (yalnızca Development modunda)
 - Auth: MVP'de `X-Device-ID` header, Phase 2'de JWT
 
 ### Saydin.PriceIngestion
@@ -71,11 +72,15 @@ Saydın, Türk kullanıcılara yönelik bir finansal "ya alsaydım?" (what if) m
 - Zamanlanmış görevlerle dış API'lerden günlük fiyat verisi çeker
 - PostgreSQL'e idempotent UPSERT ile yazar
 - Polly ile retry/circuit-breaker yönetimi
+- 4 adapter: TCMB (ücretsiz), CoinGecko, GoldAPI, TwelveData (API key gerekir, yoksa graceful skip)
+- Backfill: 2010-01-01'den başlar; TCMB 90 günlük, CoinGecko/TwelveData 365 günlük chunk'larla çalışır
+- `BaseAssetWorker` ile paylaşımlı chunk tabanlı backfill + günlük zamanlama
 
 ### Saydin.Shared
 - Her iki servisin referans aldığı ortak sınıf kütüphanesi
-- Entity'ler: `Asset`, `PricePoint`, `AssetType`
+- EF Core `SaydinDbContext` ve entity konfigürasyonları (`Asset`, `PricePoint`, `AssetType`)
 - Exception'lar: `PriceNotFoundException`, `ExternalApiException`
+- Diagnostics: `SaydinActivitySource`, `SaydinMetrics`
 
 ### Saydin.Client
 - Flutter 3.41.0, iOS ve Android
@@ -106,9 +111,11 @@ Saydın, Türk kullanıcılara yönelik bir finansal "ya alsaydım?" (what if) m
 |--------|-----------|----------|
 | Mobil | Flutter | 3.41.0 |
 | Backend | .NET Minimal API | 10 |
+| ORM | Entity Framework Core (Npgsql) | latest |
 | Veritabanı | PostgreSQL + TimescaleDB | latest |
 | Cache | Redis | latest |
 | Geliştirme Ortamı | Docker Compose | latest |
+| CI | GitHub Actions | — |
 
 ### MVP'de Kullanılmayanlar
 
