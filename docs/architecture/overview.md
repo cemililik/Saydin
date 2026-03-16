@@ -84,8 +84,14 @@ Saydın, Türk kullanıcılara yönelik bir finansal "ya alsaydım?" (what if) m
 
 ### Saydin.Client
 - Flutter 3.41.0, iOS ve Android
-- Clean Architecture + BLoC pattern
-- Feature-first klasör yapısı
+- Feature-first Clean Architecture (domain / data / presentation katmanları)
+- BLoC state management, `equatable` ile immutable state'ler
+- **DI:** `get_it` ile lazy singleton servis locator; BLoC `registerFactory` ile (bellek dostu)
+- **Ağ katmanı:** Dio + `DeviceIdInterceptor` (her isteğe `X-Device-ID` header ekler) + `RetryInterceptor` (GET/HEAD için üstel geri çekilmeli 2 yenileme)
+- **Hata yönetimi:** `AppError` sealed class → `DioErrorMapper` dönüşümü → `ErrorReporter` (Sentry) raporlaması; yalnızca `ServerError` ve `UnknownError` Sentry'ye gönderilir
+- **Lokalizasyon:** `flutter gen-l10n` + ARB dosyaları; tüm kullanıcı metinleri `app_tr.arb`'de, hardcoded string yasak
+- **Hata mesajları widget katmanında çözülür** — BLoC yalnızca `AppError` tipi taşır, UI metni bilmez
+- **CI/CD:** GitHub Actions — format, analyze, test (coverage), Android APK build, iOS no-codesign build
 
 ---
 
@@ -115,7 +121,7 @@ Saydın, Türk kullanıcılara yönelik bir finansal "ya alsaydım?" (what if) m
 | Veritabanı | PostgreSQL + TimescaleDB | latest |
 | Cache | Redis | latest |
 | Geliştirme Ortamı | Docker Compose | latest |
-| CI | GitHub Actions | — |
+| CI/CD | GitHub Actions | — |
 
 ### MVP'de Kullanılmayanlar
 

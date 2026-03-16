@@ -67,6 +67,20 @@ Ana hesaplama endpoint'i. "Ya alsaydım?" sorusunu yanıtlar.
 }
 ```
 
+### Response 429 (Günlük limit)
+
+```json
+{
+  "error": "RATE_LIMIT_EXCEEDED",
+  "message": "Günlük hesaplama limitine ulaştınız.",
+  "extensions": {
+    "resetAt": "2026-03-17T00:00:00Z"
+  }
+}
+```
+
+`extensions.resetAt`: Limitin sıfırlanacağı UTC zaman damgası (ISO 8601). Flutter istemcisi bu alanı ayrıştırarak `DailyLimitError.resetAt` olarak saklar.
+
 ### Response 422
 
 ```json

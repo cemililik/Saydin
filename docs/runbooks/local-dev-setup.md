@@ -16,8 +16,6 @@
 ```bash
 # docker-compose.yml src/Saydin.Services/ dizininde bulunur
 cd src/Saydin.Services
-cp .env.example .env
-# .env dosyasını düzenle — API key'leri doldur (CoinGecko, GoldAPI, Twelve Data)
 
 docker-compose up -d
 
@@ -140,11 +138,51 @@ cd src/Saydin.Client
 # Bağımlılıkları yükle
 flutter pub get
 
-# iOS Simulator veya Android Emulator'da çalıştır
-flutter run
+# Lokalizasyon kodunu üret (her ARB değişikliğinde tekrar çalıştır)
+flutter gen-l10n
 ```
 
-Emülatörden API'ye bağlantı için `lib/core/network/` dosyasında base URL'yi `http://10.0.2.2:5080` (Android) veya `http://localhost:5080` (iOS) olarak ayarla.
+### Cihaz / Emülatör Seçenekleri
+
+```bash
+# Bağlı cihazları listele
+flutter devices
+
+# Android Emülatör (AVD Manager ile önceden oluşturulmuş olmalı)
+flutter run --device-id emulator-5554
+
+# iOS Simulator (macOS + Xcode gerektirir)
+flutter run --device-id "iPhone 16"
+
+# Fiziksel Android cihaz (USB debug açık)
+flutter run --device-id <device-id>
+```
+
+### API ve Sentry Konfigürasyonu
+
+`dart-define` ile ortam değişkenleri enjekte edilir — kaynak koda gömülmez:
+
+```bash
+# Android emülatörden backend'e bağlantı (10.0.2.2 = host makinesi)
+flutter run \
+  --dart-define=API_BASE_URL=http://10.0.2.2:5080 \
+  --dart-define=APP_ENV=development
+
+# iOS simulator veya fiziksel cihaz
+flutter run \
+  --dart-define=API_BASE_URL=http://localhost:5080 \
+  --dart-define=APP_ENV=development
+
+# Sentry hata izleme etkinleştirmek için (opsiyonel, DSN Sentry projesinden alınır)
+flutter run \
+  --dart-define=API_BASE_URL=http://10.0.2.2:5080 \
+  --dart-define=APP_ENV=development \
+  --dart-define=SENTRY_DSN=https://<key>@sentry.io/<project>
+```
+
+> **Not:** `SENTRY_DSN` tanımlı değilse Sentry sessizce devre dışı kalır, uygulama çalışmaya devam eder.
+
+> **Not:** `API_BASE_URL` tanımlı değilse varsayılan `http://10.0.2.2:5080` kullanılır (Android emülatör için doğru değerdir).
 
 ---
 
@@ -155,9 +193,10 @@ Emülatörden API'ye bağlantı için `lib/core/network/` dosyasında base URL'y
 cd src/Saydin.Services
 dotnet test
 
-# Flutter testleri
+# Flutter testleri (coverage raporu dahil)
 cd src/Saydin.Client
-flutter test
+flutter gen-l10n  # önce l10n kodu üret
+flutter test --coverage
 ```
 
 ---
