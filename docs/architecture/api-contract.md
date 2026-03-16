@@ -53,9 +53,16 @@ Ana hesaplama endpoint'i. "Ya alsaydım?" sorusunu yanıtlar.
   "finalValueTry": 47010.34,
   "profitLossTry": 37010.34,
   "profitLossPercent": 370.10,
-  "isProfit": true
+  "isProfit": true,
+  "priceHistory": [
+    { "date": "2020-03-01", "price": 6.42 },
+    { "date": "2022-07-15", "price": 17.83 },
+    { "date": "2024-01-15", "price": 30.18 }
+  ]
 }
 ```
+
+`priceHistory`: Alış-satış aralığından örneklenmiş en fazla 60 fiyat noktası. Grafik çizimi için kullanılır. İlk ve son nokta daima dahil edilir. Aralık kısa ise daha az nokta döner.
 
 ### Response 404
 
@@ -106,21 +113,21 @@ Desteklenen tüm asset'lerin listesi.
       "symbol": "USDTRY",
       "displayName": "Dolar/TL",
       "category": "currency",
-      "dataAvailableFrom": "1950-01-02",
-      "dataAvailableTo": "2026-03-14",
-      "isActive": true
+      "firstPriceDate": "1950-01-02",
+      "lastPriceDate": "2026-03-14"
     },
     {
       "symbol": "BTC",
       "displayName": "Bitcoin",
       "category": "crypto",
-      "dataAvailableFrom": "2014-01-01",
-      "dataAvailableTo": "2026-03-14",
-      "isActive": true
+      "firstPriceDate": "2014-01-01",
+      "lastPriceDate": "2026-03-14"
     }
   ]
 }
 ```
+
+`firstPriceDate` / `lastPriceDate`: Asset için veritabanında mevcut en eski ve en yeni fiyat tarihleri. `null` olabilir (henüz veri yüklenmemişse). Flutter istemcisi bu tarihleri tarih seçici aralığını kısıtlamak için kullanır.
 
 **Kategori değerleri:** `currency` | `precious_metal` | `stock` | `crypto`
 
@@ -192,8 +199,6 @@ Fiyat grafik verisi için aralıklı fiyat listesi.
 
 ## POST /scenarios
 
-> **Henüz implement edilmedi.** Bu endpoint planlı olup geliştirme sırası beklemektedir.
-
 Kullanıcının "ya alsaydım?" senaryosunu kaydeder.
 
 **Auth gerektirir:** `X-Device-ID`
@@ -241,8 +246,6 @@ Kullanıcının "ya alsaydım?" senaryosunu kaydeder.
 
 ## GET /scenarios
 
-> **Henüz implement edilmedi.**
-
 Kullanıcının kayıtlı senaryoları.
 
 **Auth gerektirir:** `X-Device-ID`
@@ -270,8 +273,6 @@ Kullanıcının kayıtlı senaryoları.
 ---
 
 ## DELETE /scenarios/{id}
-
-> **Henüz implement edilmedi.**
 
 Kayıtlı bir senaryoyu siler.
 
