@@ -100,6 +100,65 @@ Ana hesaplama endpoint'i. "Ya alsaydım?" sorusunu yanıtlar.
 
 ---
 
+## POST /what-if/compare
+
+Birden fazla varlığı aynı dönem ve tutar için paralel hesaplayarak karlılığa göre sıralar. **1 hesaplama hakkı** tüketir.
+
+**Auth gerektirir:** `X-Device-ID`
+
+### Request
+
+```json
+{
+  "assetSymbols": ["USDTRY", "BTC", "XAU_TRY_GRAM"],
+  "buyDate": "2020-03-01",
+  "sellDate": "2024-01-15",
+  "amount": 10000,
+  "amountType": "try"
+}
+```
+
+| Alan | Tip | Zorunlu | Açıklama |
+|------|-----|---------|----------|
+| `assetSymbols` | string[] | ✓ | 2-5 arası sembol |
+| `buyDate` | date (YYYY-MM-DD) | ✓ | Alım tarihi |
+| `sellDate` | date (YYYY-MM-DD) | — | Satış tarihi. Boş bırakılırsa bugün |
+| `amount` | number | ✓ | Tutar |
+| `amountType` | enum | ✓ | `try` \| `units` \| `grams` |
+
+### Response 200
+
+```json
+{
+  "results": [
+    {
+      "rank": 1,
+      "calculation": {
+        "assetSymbol": "BTC",
+        "assetDisplayName": "Bitcoin",
+        "profitLossPercent": 1250.50,
+        "finalValueTry": 135050.00,
+        "..."  : "..."
+      }
+    },
+    {
+      "rank": 2,
+      "calculation": {
+        "assetSymbol": "USDTRY",
+        "assetDisplayName": "Dolar/TL",
+        "profitLossPercent": 370.10,
+        "finalValueTry": 47010.00,
+        "...": "..."
+      }
+    }
+  ]
+}
+```
+
+`results`: `profitLossPercent`'e göre azalan sırada. Her `calculation` alanı `/what-if/calculate` yanıtıyla özdeş yapıdadır.
+
+---
+
 ## GET /assets
 
 Desteklenen tüm asset'lerin listesi.
