@@ -32,6 +32,7 @@ Ana hesaplama endpoint'i. "Ya alsaydım?" sorusunu yanıtlar.
 | `sellDate` | date (YYYY-MM-DD) | — | Satış tarihi. Boş bırakılırsa bugün |
 | `amount` | number | ✓ | Tutar |
 | `amountType` | enum | ✓ | `try` \| `units` \| `grams` |
+| `includeInflation` | boolean | — | `true` ise reel getiri hesaplanır (TÜFE/EVDS). Default: `false` |
 
 **amountType açıklaması:**
 - `try` → TL cinsinden yatırım tutarı (örn: 10.000 TL)
@@ -54,6 +55,11 @@ Ana hesaplama endpoint'i. "Ya alsaydım?" sorusunu yanıtlar.
   "profitLossTry": 37010.34,
   "profitLossPercent": 370.10,
   "isProfit": true,
+  "cumulativeInflationPercent": 312.50,
+  "realProfitLossPercent": 13.98,
+  "inflationDataAsOf": "2023-11-01",
+  "actualBuyDate": null,
+  "actualSellDate": "2024-01-12",
   "priceHistory": [
     { "date": "2020-03-01", "price": 6.42 },
     { "date": "2022-07-15", "price": 17.83 },
@@ -62,7 +68,17 @@ Ana hesaplama endpoint'i. "Ya alsaydım?" sorusunu yanıtlar.
 }
 ```
 
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| `cumulativeInflationPercent` | number \| null | `includeInflation: true` ise alış-satış dönemi arasındaki kümülatif TÜFE enflasyonu (%). Enflasyon verisi yoksa `null`. |
+| `realProfitLossPercent` | number \| null | Fisher denklemiyle hesaplanan reel getiri: `((1 + nominal/100) / (1 + enflasyon/100) - 1) * 100`. Negatif ise enflasyon altında kalmış demektir. |
+| `inflationDataAsOf` | date \| null | TÜİK verisi satış ayı için mevcut değilse (2-3 ay yayın gecikmesi) kullanılan en güncel ay. Satış ayı tam olarak mevcutsa `null`. |
+| `actualBuyDate` | date \| null | Seçilen alış tarihi hafta sonu veya tatil ise kullanılan gerçek işlem günü. Tarih tam eşleşirse `null`. |
+| `actualSellDate` | date \| null | Seçilen satış tarihi hafta sonu veya tatil ise kullanılan gerçek işlem günü. Tarih tam eşleşirse `null`. |
+
 `priceHistory`: Alış-satış aralığından örneklenmiş en fazla 60 fiyat noktası. Grafik çizimi için kullanılır. İlk ve son nokta daima dahil edilir. Aralık kısa ise daha az nokta döner.
+
+**Tarih düzeltme mantığı:** `actualBuyDate` / `actualSellDate` verildiğinde, alım/satım gerçekte o günde gerçekleşmiştir. Tercih sırası: seçilen tarihe ≤ olan en yakın işlem günü, bulunamazsa > olan ilk işlem günü (±7 gün penceresi).
 
 ### Response 404
 

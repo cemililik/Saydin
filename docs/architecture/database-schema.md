@@ -161,6 +161,31 @@ CREATE TABLE saved_scenarios (
 -- premium tier: sınırsız
 
 -- ============================================================
+-- INFLATION_RATES — Aylık TÜFE Endeks Değerleri
+-- ============================================================
+
+CREATE TABLE inflation_rates (
+    id           UUID          PRIMARY KEY DEFAULT gen_random_uuid(),
+    period_date  DATE          NOT NULL UNIQUE,
+    -- Her ayın 1'i olarak saklanır: 2025-01-01 = Ocak 2025
+    index_value  NUMERIC(12,4) NOT NULL,
+    -- TÜİK yayımladığı TÜFE endeks değeri (baz yıl 2003=100)
+    source       VARCHAR(50)   NOT NULL DEFAULT 'tuik',
+    -- EVDS API üzerinden çekilen TÜİK verisi
+    ingested_at  TIMESTAMPTZ   NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX idx_inflation_rates_period
+    ON inflation_rates (period_date DESC);
+
+-- Veri kaynağı: EVDS API — seri kodu: TP.FG.J0
+-- Yayın gecikmesi: TÜİK her ayı 2-3 ay gecikmeli yayımlar.
+-- Bu nedenle belirli bir tarihin enflasyon verisi sorgulanırken
+-- "last known value" (LKV) mantığı kullanılır:
+--   WHERE period_date <= hedef_ay ORDER BY period_date DESC LIMIT 1
+-- Kullanılan değerin gerçek tarihi API yanıtında 'inflationDataAsOf' olarak döner.
+
+-- ============================================================
 -- MARKET_HOLIDAYS — Piyasa Tatil Günleri
 -- ============================================================
 
