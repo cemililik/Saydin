@@ -22,22 +22,23 @@ Saydın, "ya alsaydım?" sorusunun **en güvenilir, en kolay ve en eğlenceli** 
 | Sonuç paylaşma | Canlı | Tekli hesaplama + karşılaştırma + portföy paylaşım kartları, PNG render, share sheet |
 | Dark mode | Canlı | Sistem teması takibi + manuel seçim (Açık/Koyu/Sistem), SharedPreferences |
 | Enflasyon düzeltmesi | Canlı | EVDS TÜFE verisi + toggle UI (tüm ekranlarda), reel getiri gösterimi |
-| Senaryo kaydetme/silme | Canlı | Device-ID bazlı, tip desteği (what_if/comparison/portfolio) |
+| Senaryo kaydetme/silme | Canlı | Device-ID bazlı, tip desteği (what_if/comparison/portfolio/dca) |
 | Tier sistemi (free/premium) | Yapılandırılmış | Günlük 20 hesaplama, 10 senaryo limiti |
 | Redis rate limiting | Canlı | Atomik Lua script ile |
 | 4 fiyat veri kaynağı | Canlı | TCMB, CoinGecko, GoldAPI, TwelveData |
 | Hesaplamada fiyat geçmişi | Canlı | Yanıtta 60 noktalık grafik verisi |
 | Sentry hata takibi | Canlı | Client tarafı |
 | CI/CD pipeline | Canlı | GitHub Actions, Play Store upload, GitHub Release |
+| Onboarding | Canlı | 5 sayfalık akış, animasyonlu geçişler |
+| DCA (Düzenli Yatırım) simülasyonu | Canlı | Haftalık/aylık periyod, enflasyon, paylaşım, senaryo kaydetme |
 
 ### Eksikler
 
-- Onboarding yok — kullanıcı boş ekranla karşılaşıyor
 - Kullanıcı hesabı yok (device-ID bazlı)
 - Premium satın alma akışı yok
 - Activity logging yok — kullanıcı davranışını bilmiyoruz
 - Push notification yok
-- DCA / ters senaryo yok
+- Ters senaryo yok
 - Döviz çevirici yok
 
 ---
@@ -57,10 +58,10 @@ gantt
     Tekli hesaplama paylaşma      :done, f1sh, 2026-03-17, 1d
     Favori varlıklar              :done, f1a, 2026-03-19, 1d
     UI polish                     :done, f1b, after f1a, 3d
-    Onboarding ekranları          :f1c, after f1b, 3d
+    Onboarding ekranları          :done, f1c, after f1b, 3d
 
     section Faz 2 — Farklılaştırma
-    DCA simülasyonu               :f2a, after f1c, 5d
+    DCA simülasyonu               :done, f2a, after f1c, 5d
     Ters senaryo                  :f2b, after f2a, 4d
     Trend/popüler                 :f2c, after f2b, 3d
     Döviz çevirici                :f2d, after f2c, 3d
@@ -113,28 +114,13 @@ gantt
 - [x] App icon ve splash screen iyileştirmesi
 - ~~Enflasyon düzeltmesini free tier'da açma~~ — zaten açık
 
-#### 1.5 Onboarding Ekranları
+#### ~~1.5 Onboarding Ekranları~~ — TAMAMLANDI
 
-| Detay | Değer |
-|-------|-------|
-| **Ne:** | İlk açılışta 3-4 sayfalık tanıtım akışı |
-| **Neden:** | Kullanıcı uygulamanın ne yaptığını anlamalı, ilk hesaplamaya yönlendirilmeli |
-| **Bağımlılık:** | Faz 1'deki diğer tüm özellikler (onboarding içerikleri tüm özellikleri tanıtmalı) |
-| **Büyüklük:** | S (küçük) |
-
-> **Not:** Onboarding en sona bırakıldı çünkü her yeni özellik eklendikçe onboarding içeriğinin güncellenmesi gerekir. Tüm Faz 1 özellikleri tamamlandıktan sonra tek seferde yapılması daha verimli.
-
-Sayfa akışı:
-1. "Ya alsaydım?" — Uygulamanın ne yaptığını anlatan hero ekran
-2. "Dolar, altın, Bitcoin..." — Desteklenen varlık kategorileri
-3. "Karşılaştır, portföy oluştur, paylaş" — Özellik tanıtımı
-4. **CTA:** "Hemen Dene" → İlk hesaplama ekranına yönlendir (kayıt isteme!)
-
-**Kabul Kriterleri:**
-- [ ] İlk açılışta gösterilir, tekrar gösterilmez
-- [ ] Atlama butonu var
-- [ ] Son sayfada hesaplama ekranına yönlendirme
-- [ ] Animasyonlu geçişler (sayfa kaydırma)
+- [x] İlk açılışta gösterilir, tekrar gösterilmez (SharedPreferences flag)
+- [x] 5 sayfalık akış: Hesaplama → Karşılaştırma → Portföy → Düzenli Yatırım (DCA) → Paylaş & Kaydet
+- [x] Atlama butonu var
+- [x] Son sayfada "Hemen Dene" → hesaplama ekranına yönlendirme
+- [x] Animasyonlu geçişler (gradient arka plan, yüzen ikonlar, fade+slide içerik)
 
 ---
 
@@ -146,7 +132,7 @@ Sayfa akışı:
 
 **Neden ikinci?** Temel deneyim polish edildikten sonra, kullanıcıyı "vay be" dedirtecek ve geri getirecek farklılaştırıcı özellikler gerekiyor.
 
-#### 2.1 Periyodik Yatırım Simülasyonu (DCA)
+#### ~~2.1 Periyodik Yatırım Simülasyonu (DCA)~~ — TAMAMLANDI
 
 | Detay | Değer |
 |-------|-------|
@@ -156,22 +142,25 @@ Sayfa akışı:
 | **Büyüklük:** | L (büyük) — yeni endpoint + Flutter feature |
 
 **Backend:**
-- Yeni endpoint: `POST /v1/what-if/dca`
-- Request: `{ assetSymbol, startDate, endDate, periodicAmount, period, amountType }`
-- Response: periyodik alım detayları, toplam maliyet, güncel değer, ortalama maliyet
+- Endpoint: `POST /v1/what-if/dca`
+- Request: `{ assetSymbol, startDate, endDate, periodicAmount, period, amountType, includeInflation }`
+- Response: periyodik alım detayları, toplam maliyet, güncel değer, ortalama maliyet, enflasyon düzeltmesi
 
 **Flutter:**
-- Yeni feature: `features/dca/`
+- Feature: `features/dca/` (Clean Architecture + BLoC)
+- Tab adı: "Birikim" (TR) / "DCA" (EN)
+- Sayfa başlığı: "Düzenli Yatırım Simülasyonu" (TR) / "DCA Simulation" (EN)
 - Periyod seçimi (haftalık/aylık)
-- Sonuç: birikimli grafik + özet tablo
+- Sonuç: özet tablo + paylaşım kartı
+- Senaryo kaydetme (type: dca) + paylaşma desteği
 
 **Kabul Kriterleri:**
-- [ ] Aylık ve haftalık periyod desteği
-- [ ] Birikimli değer grafiği (line chart)
-- [ ] Toplam yatırım vs güncel değer karşılaştırması
-- [ ] DCA sonucu senaryo olarak kaydedilebilir (type: dca)
-- [ ] Enflasyon düzeltmesi desteği
-- [ ] Sonuç paylaşılabilir (mevcut share altyapısı)
+- [x] Aylık ve haftalık periyod desteği
+- [x] Birikimli değer grafiği (line chart)
+- [x] Toplam yatırım vs güncel değer karşılaştırması
+- [x] DCA sonucu senaryo olarak kaydedilebilir (type: dca)
+- [x] Enflasyon düzeltmesi desteği
+- [x] Sonuç paylaşılabilir (mevcut share altyapısı)
 
 #### 2.2 Ters Senaryo (Hedef Hesaplama)
 

@@ -142,22 +142,37 @@ CREATE TABLE users (
 -- ============================================================
 
 CREATE TABLE saved_scenarios (
-    id             UUID          PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id        UUID          NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-    asset_id       UUID          NOT NULL REFERENCES assets(id),
-    buy_date       DATE          NOT NULL,
-    sell_date      DATE,
+    id                  UUID          PRIMARY KEY DEFAULT gen_random_uuid(),
+    user_id             UUID          NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    asset_id            UUID          REFERENCES assets(id),
+    -- what_if ve dca tipleri için zorunlu, comparison ve portfolio için NULL
+    asset_symbol        VARCHAR(20),
+    -- Denormalize: asset sembolü (replay için)
+    asset_display_name  VARCHAR(100),
+    -- Denormalize: asset görünen adı
+    buy_date            DATE          NOT NULL,
+    sell_date           DATE,
     -- NULL = "bugüne kadar"
-    quantity       NUMERIC(18,8) NOT NULL,
-    quantity_unit  VARCHAR(20)   NOT NULL,
+    quantity            NUMERIC(18,8) NOT NULL,
+    quantity_unit       VARCHAR(20)   NOT NULL,
     -- Değerler: 'try' (TL tutarı), 'units' (birim), 'grams'
-    label          VARCHAR(200),
+    type                VARCHAR(20)   NOT NULL DEFAULT 'what_if',
+    -- Değerler: 'what_if', 'comparison', 'portfolio', 'dca'
+    label               VARCHAR(200),
     -- Kullanıcının kendi notu: "2020 dolar alımlı ne olurdu"
-    created_at     TIMESTAMPTZ   NOT NULL DEFAULT NOW()
+    extra_data          JSONB,
+    -- Tipe özgü ek veriler
+    -- DCA: { "period": "monthly", "periodicAmount": 1000, "includeInflation": true }
+    -- Comparison: { "assetSymbols": ["USDTRY", "BTC"], "includeInflation": false }
+    -- Portfolio: { "assets": [...], "includeInflation": true }
+    created_at          TIMESTAMPTZ   NOT NULL DEFAULT NOW(),
+
+    CONSTRAINT chk_saved_scenarios_type
+        CHECK (type IN ('what_if', 'comparison', 'portfolio', 'dca'))
 );
 
 -- Uygulama katmanında zorunlu:
--- free tier: kullanıcı başına max 5 senaryo
+-- free tier: kullanıcı başına max 10 senaryo
 -- premium tier: sınırsız
 
 -- ============================================================

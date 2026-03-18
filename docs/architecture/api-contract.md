@@ -176,6 +176,84 @@ Birden fazla varlığı aynı dönem ve tutar için paralel hesaplayarak karlıl
 
 ---
 
+## POST /what-if/dca
+
+Periyodik yatırım (DCA — Dollar Cost Averaging) simülasyonu. "Her ay 1.000 TL dolar alsaydım bugün ne kadar olurdu?" sorusunu yanıtlar. **1 hesaplama hakkı** tüketir.
+
+**Auth gerektirir:** `X-Device-ID`
+
+### Request
+
+```json
+{
+  "assetSymbol": "USDTRY",
+  "startDate": "2023-01-01",
+  "endDate": "2026-03-01",
+  "periodicAmount": 1000,
+  "period": "monthly",
+  "amountType": "try",
+  "includeInflation": true
+}
+```
+
+| Alan | Tip | Zorunlu | Açıklama |
+|------|-----|---------|----------|
+| `assetSymbol` | string | ✓ | Asset sembolü |
+| `startDate` | date (YYYY-MM-DD) | ✓ | İlk alım tarihi |
+| `endDate` | date (YYYY-MM-DD) | — | Son alım tarihi. Boş bırakılırsa bugün |
+| `periodicAmount` | number | ✓ | Her periyodda yatırılacak tutar |
+| `period` | enum | ✓ | `weekly` \| `monthly` |
+| `amountType` | enum | ✓ | `try` \| `units` \| `grams` |
+| `includeInflation` | boolean | — | `true` ise reel getiri hesaplanır. Default: `false` |
+
+### Response 200
+
+```json
+{
+  "assetSymbol": "USDTRY",
+  "assetDisplayName": "Dolar/TL",
+  "startDate": "2023-01-01",
+  "endDate": "2026-03-01",
+  "period": "monthly",
+  "periodicAmount": 1000,
+  "totalPurchases": 39,
+  "totalInvestedTry": 39000.00,
+  "currentValueTry": 52340.50,
+  "profitLossTry": 13340.50,
+  "profitLossPercent": 34.21,
+  "isProfit": true,
+  "averageCostPerUnit": 26.84,
+  "totalUnitsAcquired": 1452.76,
+  "currentPrice": 36.02,
+  "cumulativeInflationPercent": 112.30,
+  "realProfitLossPercent": -36.72,
+  "priceHistory": [
+    { "date": "2023-01-01", "cost": 1000, "value": 1000 },
+    { "date": "2023-02-01", "cost": 2000, "value": 2050 }
+  ]
+}
+```
+
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| `totalPurchases` | int | Toplam alım sayısı |
+| `totalInvestedTry` | number | Toplam yatırılan TL |
+| `currentValueTry` | number | Güncel portföy değeri |
+| `profitLossTry` | number | Kar/zarar (TL) |
+| `profitLossPercent` | number | Kar/zarar (%) |
+| `averageCostPerUnit` | number | Ortalama birim maliyeti |
+| `totalUnitsAcquired` | number | Toplam edinilen birim |
+| `currentPrice` | number | Varlığın güncel fiyatı |
+| `cumulativeInflationPercent` | number \| null | Kümülatif TÜFE enflasyonu (%) |
+| `realProfitLossPercent` | number \| null | Reel getiri (%) |
+| `priceHistory` | array | Birikimli maliyet vs değer grafiği için veri noktaları |
+
+### Response 404 / 422 / 429
+
+`/what-if/calculate` ile aynı hata yapısı.
+
+---
+
 ## GET /assets
 
 Desteklenen tüm asset'lerin listesi.
@@ -284,13 +362,28 @@ Kullanıcının "ya alsaydım?" senaryosunu kaydeder.
 ```json
 {
   "assetSymbol": "USDTRY",
+  "assetDisplayName": "Dolar/TL",
   "buyDate": "2020-03-01",
   "sellDate": null,
   "amount": 10000,
   "amountType": "try",
-  "label": "2020 dolar alımlı ne olurdu"
+  "type": "what_if",
+  "label": "2020 dolar alımlı ne olurdu",
+  "extraData": null
 }
 ```
+
+| Alan | Tip | Zorunlu | Açıklama |
+|------|-----|---------|----------|
+| `assetSymbol` | string | ✓ | Asset sembolü (`what_if` ve `dca` tipleri için) |
+| `assetDisplayName` | string | ✓ | Asset görünen adı |
+| `buyDate` | date | ✓ | Alım / başlangıç tarihi |
+| `sellDate` | date | — | Satış / bitiş tarihi |
+| `amount` | number | ✓ | Tutar |
+| `amountType` | enum | ✓ | `try` \| `units` \| `grams` |
+| `type` | enum | ✓ | `what_if` \| `comparison` \| `portfolio` \| `dca` |
+| `label` | string | — | Kullanıcının kendi notu |
+| `extraData` | object | — | Tipe özgü ek veriler (DCA: `{ period, periodicAmount, includeInflation }`) |
 
 ### Response 201
 
@@ -298,11 +391,14 @@ Kullanıcının "ya alsaydım?" senaryosunu kaydeder.
 {
   "id": "550e8400-e29b-41d4-a716-446655440000",
   "assetSymbol": "USDTRY",
+  "assetDisplayName": "Dolar/TL",
   "buyDate": "2020-03-01",
   "sellDate": null,
   "amount": 10000,
   "amountType": "try",
+  "type": "what_if",
   "label": "2020 dolar alımlı ne olurdu",
+  "extraData": null,
   "createdAt": "2026-03-15T10:00:00Z"
 }
 ```
@@ -339,7 +435,9 @@ Kullanıcının kayıtlı senaryoları.
       "sellDate": null,
       "amount": 10000,
       "amountType": "try",
+      "type": "what_if",
       "label": "2020 dolar alımlı ne olurdu",
+      "extraData": null,
       "createdAt": "2026-03-15T10:00:00Z"
     }
   ]

@@ -8,10 +8,10 @@ Bu doküman, Saydın uygulamasındaki tier bazlı kontrollerin **nerede**, **nas
 
 Sistem iki tier destekler:
 
-| Tier | Günlük Hesaplama | Senaryo Limiti | Enflasyon | Fiyat Geçmişi | Karşılaştırma | Paylaşım |
-|------|-------------------|----------------|-----------|---------------|----------------|----------|
-| **free** | 20/gün | 10 | Kilitli | Son 12 ay | Açık | Açık |
-| **premium** | Sınırsız (0) | Sınırsız (0) | Açık | Tüm geçmiş (0) | Açık | Açık |
+| Tier | Günlük Hesaplama | Senaryo Limiti | Enflasyon | Fiyat Geçmişi | Karşılaştırma | Paylaşım | DCA |
+|------|-------------------|----------------|-----------|---------------|----------------|----------|-----|
+| **free** | 20/gün | 10 | Kilitli | Son 12 ay | Açık | Açık | Açık |
+| **premium** | Sınırsız (0) | Sınırsız (0) | Açık | Tüm geçmiş (0) | Açık | Açık | Açık |
 
 > `0` değeri "sınırsız" anlamına gelir.
 
@@ -46,6 +46,7 @@ public class FeatureOptions
     public bool Comparison { get; init; } = true;
     public bool InflationAdjustment { get; init; } = true;
     public bool Share { get; init; } = true;
+    public bool Dca { get; init; } = true;
     public int PriceHistoryMonths { get; init; } = 12;     // 0 = tüm geçmiş
 }
 ```
@@ -64,6 +65,7 @@ public class FeatureOptions
         "Comparison": true,
         "InflationAdjustment": true,
         "Share": true,
+        "Dca": true,
         "PriceHistoryMonths": 12
       }
     },
@@ -74,6 +76,7 @@ public class FeatureOptions
         "Comparison": true,
         "InflationAdjustment": true,
         "Share": true,
+        "Dca": true,
         "PriceHistoryMonths": 0
       }
     }
@@ -142,9 +145,10 @@ public class User
 
 **Dosya:** `src/Saydin.Services/src/Saydin.Api/Services/WhatIfCalculator.cs`
 
-Bu kontrol **iki endpoint** için geçerlidir:
+Bu kontrol **üç endpoint** için geçerlidir:
 - `POST /v1/what-if/calculate`
 - `POST /v1/what-if/compare`
+- `POST /v1/what-if/dca`
 
 ### CheckDailyLimitAsync() — Satır 278-297
 
@@ -272,6 +276,7 @@ return Results.Ok(new AppConfigResponse
         Comparison = tierOptions.Features.Comparison,
         InflationAdjustment = tierOptions.Features.InflationAdjustment,
         Share = tierOptions.Features.Share,
+        Dca = tierOptions.Features.Dca,
         PriceHistoryMonths = tierOptions.Features.PriceHistoryMonths,
     }
 });
@@ -295,6 +300,7 @@ public record AppFeatureFlags
     public bool Comparison { get; init; }
     public bool InflationAdjustment { get; init; }
     public bool Share { get; init; }
+    public bool Dca { get; init; }
     public int PriceHistoryMonths { get; init; }
 }
 ```
@@ -306,6 +312,7 @@ public record AppFeatureFlags
 | `Comparison` | YOK | `/v1/what-if/compare` her zaman çalışır |
 | `InflationAdjustment` | YOK | `includeInflation: true` her zaman kabul edilir |
 | `Share` | YOK | Paylaşım tamamen client-side |
+| `Dca` | YOK | DCA simülasyonu her zaman çalışır |
 | `PriceHistoryMonths` | YOK | Fiyat geçmişi her zaman tam döner |
 | `DailyCalculationLimit` | VAR | Redis ile kontrol edilir |
 | `MaxSavedScenarios` | VAR | DB count ile kontrol edilir |
@@ -339,6 +346,7 @@ class AppConfig extends Equatable {
       comparison: true,
       inflationAdjustment: true,
       share: true,
+      dca: true,
       priceHistoryMonths: 12,
     ),
   );
@@ -403,6 +411,7 @@ if (!enabled) ...[
 | What-If | `what_if_page.dart` (satır 195-199) | `config.features.inflationAdjustment` |
 | Portföy | `portfolio_page.dart` (satır 276-282) | `config.features.inflationAdjustment` |
 | Karşılaştırma | `comparison_page.dart` | `config.features.inflationAdjustment` |
+| DCA | `dca_page.dart` | `config.features.inflationAdjustment` |
 
 ### 7.2 Fiyat Geçmişi Tarih Kısıtlaması (3 sayfada)
 
@@ -431,6 +440,7 @@ if (!enabled) ...[
 | What-If | `what_if_page.dart` (satır 168-174) | Tarih seçicide ilk tarih kısıtlanır |
 | Portföy | `portfolio_page.dart` (satır 209-216) | Tarih seçicide ilk tarih kısıtlanır |
 | Karşılaştırma | `comparison_page.dart` | `comparisonDateRange()` ile kısıtlanır |
+| DCA | `dca_page.dart` | Tarih seçicide ilk tarih kısıtlanır |
 
 ### 7.3 Günlük Hesaplama Limiti Hatası
 
@@ -441,7 +451,7 @@ Backend HTTP 429
     ↓
 DioErrorMapper.map() → DailyLimitError(resetAt: ...)
     ↓
-WhatIfBloc / ComparisonBloc / PortfolioBloc → emit(Failure(error))
+WhatIfBloc / ComparisonBloc / PortfolioBloc / DcaBloc → emit(Failure(error))
     ↓
 UI → SnackBar: "Günlük hesaplama limitine ulaştınız."
 ```
@@ -508,7 +518,8 @@ flowchart TD
     maxSavedScenarios, features: { comparison,
     inflationAdjustment, share, priceHistoryMonths } }"]
     D --> E["AppConfigCubit → state güncelle
-    → UI yeniden çizilir"]
+    → UI yeniden çizilir
+    (comparison, inflationAdjustment, share, dca, priceHistoryMonths)"]
 ```
 
 ```mermaid
@@ -554,6 +565,7 @@ Aşağıdaki flag'ler backend'de tanımlı ve client'a gönderiliyor ancak **ser
 | `Comparison` | Client-only gating | API doğrudan çağrılırsa free kullanıcı da karşılaştırma yapabilir |
 | `InflationAdjustment` | Client-only gating | `includeInflation: true` gönderilirse backend hesaplar |
 | `Share` | Client-only gating | Paylaşım tamamen client-side, risk yok |
+| `Dca` | Client-only gating | `/v1/what-if/dca` doğrudan çağrılırsa free kullanıcı da DCA yapabilir |
 | `PriceHistoryMonths` | Client-only gating | API'den tüm tarih aralığı sorgulanabilir |
 
 ### Premium'a Yükseltme

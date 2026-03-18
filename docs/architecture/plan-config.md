@@ -20,6 +20,7 @@ Kullanıcı planlarına (Free / Premium) ait limit ve özellik bayraklarını me
         "Comparison": true,
         "InflationAdjustment": true,
         "Share": true,
+        "Dca": true,
         "PriceHistoryMonths": 12
       }
     },
@@ -30,6 +31,7 @@ Kullanıcı planlarına (Free / Premium) ait limit ve özellik bayraklarını me
         "Comparison": true,
         "InflationAdjustment": true,
         "Share": true,
+        "Dca": true,
         "PriceHistoryMonths": 0
       }
     }
@@ -65,6 +67,7 @@ Kullanıcının `X-Device-ID`'sine göre tier'ını belirler, ilgili plan konfig
     "comparison": true,
     "inflationAdjustment": true,
     "share": true,
+    "dca": true,
     "priceHistoryMonths": 12
   }
 }
