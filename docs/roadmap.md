@@ -56,7 +56,7 @@ gantt
     Dark mode                     :done, f1dm, 2026-03-17, 1d
     Tekli hesaplama paylaşma      :done, f1sh, 2026-03-17, 1d
     Favori varlıklar              :done, f1a, 2026-03-19, 1d
-    UI polish                     :f1b, after f1a, 3d
+    UI polish                     :done, f1b, after f1a, 3d
     Onboarding ekranları          :f1c, after f1b, 3d
 
     section Faz 2 — Farklılaştırma
@@ -105,25 +105,13 @@ gantt
 - [x] Lokalde saklanır (device-level, `SharedPreferences`)
 - [x] Maksimum 5 favori
 
-#### 1.4 UI Polish
+#### ~~1.4 UI Polish~~ — TAMAMLANDI
 
-| Detay | Değer |
-|-------|-------|
-| **Ne:** | Mevcut ekranların görsel iyileştirmesi |
-| **Neden:** | Profesyonel görünüm = güven = indirme |
-| **Bağımlılık:** | Dark mode tamamlandıktan sonra |
-| **Büyüklük:** | S |
-
-**Kapsamı:**
-- Hesaplama sonuç ekranında animasyonlu sayaç (profit counter)
-- Skeleton loading (shimmer) yerine boş ekranlar
-- Haptic feedback (hesaplama tamamlandığında)
-- App icon ve splash screen iyileştirmesi
-- Enflasyon düzeltmesini free tier'da açma (strateji değişikliği — detay aşağıda)
-
-> **Strateji Notu: Enflasyon Düzeltmesi Free'ye Açılsın**
->
-> Enflasyon düzeltmesi Türkiye bağlamında çok değerli ve farklılaştırıcı. Premium'a kilitlemek kullanıcıyı uzaklaştırır. "Altın %300 kazandırmış ama reel kazanç %13" gibi sonuçlar paylaşılma potansiyeli yüksek. Premium farklılaştırmayı DCA, bildirim, widget gibi "power user" özelliklerle yap.
+- [x] Hesaplama sonuç ekranında animasyonlu sayaç (profit counter)
+- [x] Skeleton loading (shimmer) yerine boş ekranlar
+- [x] Haptic feedback (hesaplama tamamlandığında)
+- [x] App icon ve splash screen iyileştirmesi
+- ~~Enflasyon düzeltmesini free tier'da açma~~ — zaten açık
 
 #### 1.5 Onboarding Ekranları
 
