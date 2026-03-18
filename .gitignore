@@ -21,3 +21,4 @@ postman/
 # Review raporları (lokal, commit edilmez)
 docs/reviews/
 saydin-release.jks
+docs/architecture/activity-logging.md
