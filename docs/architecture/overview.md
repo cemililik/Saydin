@@ -12,46 +12,51 @@ Saydın, Türk kullanıcılara yönelik bir finansal "ya alsaydım?" (what if) m
 
 ## Yüksek Seviye Mimari
 
-```
-┌─────────────────────────────────────────────────────────┐
-│                   Saydin.Client                         │
-│               Flutter 3.41.0 (iOS + Android)            │
-└───────────────────────┬─────────────────────────────────┘
-                        │ HTTP/REST (X-Device-ID auth)
-                        ▼
-┌─────────────────────────────────────────────────────────┐
-│                    Saydin.Api                           │
-│            .NET 10 Minimal API                          │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
-│  │  WhatIf      │  │  Assets      │  │  Scenarios   │  │
-│  │  Endpoints   │  │  Endpoints   │  │  Endpoints   │  │
-│  └──────┬───────┘  └──────┬───────┘  └──────┬───────┘  │
-│         └─────────────────┼─────────────────┘          │
-│                           ▼                             │
-│               IWhatIfCalculator / IPriceRepository      │
-└──────────────────┬────────────────────────┬─────────────┘
-                   │                        │
-                   ▼                        ▼
-┌─────────────────────────┐   ┌────────────────────────────┐
-│   PostgreSQL            │   │   Redis                    │
-│   + TimescaleDB         │   │   (Response Cache)         │
-│   (price_points table)  │   │   TTL: 1-24 saat           │
-└────────────┬────────────┘   └────────────────────────────┘
-             │
-             │ (veritabanı üzerinden iletişim)
-             │
-┌────────────┴────────────────────────────────────────────┐
-│                 Saydin.PriceIngestion                   │
-│              .NET 10 Background Worker                   │
-│  ┌──────────┐ ┌───────────┐ ┌──────────┐ ┌──────────┐  │
-│  │  TCMB   │ │ CoinGecko │ │ GoldAPI  │ │TwelveData│  │
-│  │ Adapter │ │  Adapter  │ │  Adapter │ │ Adapter  │  │
-│  └────┬────┘ └─────┬─────┘ └────┬─────┘ └────┬─────┘  │
-└───────┼────────────┼────────────┼─────────────┼────────┘
-        │            │            │             │
-        ▼            ▼            ▼             ▼
-   TCMB XML    CoinGecko     GoldAPI.io    Twelve Data
-   (Ücretsiz)  (Freemium)    (Freemium)    (Freemium)
+```mermaid
+graph TD
+    subgraph Client["Saydin.Client — Flutter 3.41.0 (iOS + Android)"]
+        MobileApp[Flutter App]
+    end
+
+    MobileApp -->|"HTTP/REST (X-Device-ID auth)"| Api
+
+    subgraph ApiService["Saydin.Api — .NET 10 Minimal API"]
+        Api[Saydin.Api]
+        WhatIf[WhatIf Endpoints]
+        Assets[Assets Endpoints]
+        Scenarios[Scenarios Endpoints]
+        Core[IWhatIfCalculator / IPriceRepository]
+
+        WhatIf --> Core
+        Assets --> Core
+        Scenarios --> Core
+    end
+
+    Core --> PostgreSQL
+    Core --> Redis
+
+    PostgreSQL["PostgreSQL + TimescaleDB\n(price_points table)"]
+    Redis["Redis\n(Response Cache, TTL: 1-24 saat)"]
+
+    PostgreSQL ---|"veritabanı üzerinden iletişim"| Ingestion
+
+    subgraph IngestionService["Saydin.PriceIngestion — .NET 10 Background Worker"]
+        Ingestion[PriceIngestion]
+        TCMB[TCMB Adapter]
+        CoinGecko[CoinGecko Adapter]
+        GoldAPI[GoldAPI Adapter]
+        TwelveData[TwelveData Adapter]
+
+        Ingestion --> TCMB
+        Ingestion --> CoinGecko
+        Ingestion --> GoldAPI
+        Ingestion --> TwelveData
+    end
+
+    TCMB -->|Ücretsiz| ExtTCMB["TCMB XML"]
+    CoinGecko -->|Freemium| ExtCoinGecko["CoinGecko API"]
+    GoldAPI -->|Freemium| ExtGoldAPI["GoldAPI.io"]
+    TwelveData -->|Freemium| ExtTwelveData["Twelve Data API"]
 ```
 
 ---

@@ -214,20 +214,16 @@ SaydinMetrics.WhatIfCalculations.Add(1,
 
 .NET 10'un `IExceptionHandler` interface'i ile her exception türü için ayrı handler zinciri kurulur:
 
-```
-İstek giriyor
-    │
-    ▼
-PriceNotFoundExceptionHandler   ← 404 döner, Warning log
-    │ (işlenemezse)
-    ▼
-ValidationExceptionHandler      ← 422 döner, Warning log
-    │ (işlenemezse)
-    ▼
-ExternalApiExceptionHandler     ← 503 döner, Error log
-    │ (işlenemezse)
-    ▼
-GlobalExceptionHandler          ← 500 döner, Error log + full stack trace
+```mermaid
+flowchart TD
+    A[İstek giriyor] --> B[PriceNotFoundExceptionHandler]
+    B -- "404 döner, Warning log" --> B_END((Yanıt))
+    B -- "işlenemezse" --> C[ValidationExceptionHandler]
+    C -- "422 döner, Warning log" --> C_END((Yanıt))
+    C -- "işlenemezse" --> D[ExternalApiExceptionHandler]
+    D -- "503 döner, Error log" --> D_END((Yanıt))
+    D -- "işlenemezse" --> E[GlobalExceptionHandler]
+    E -- "500 döner, Error log + full stack trace" --> E_END((Yanıt))
 ```
 
 ### Implementasyon Deseni
