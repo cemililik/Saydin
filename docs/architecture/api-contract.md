@@ -6,6 +6,7 @@
 **Format:** JSON
 **Auth (MVP):** `X-Device-ID: <uuid>` header
 **Auth (Phase 2):** `Authorization: Bearer <jwt>`
+**Lokalizasyon:** `Accept-Language` header (desteklenen: `tr`, `en` — varsayılan: `tr`)
 
 ---
 
@@ -382,6 +383,27 @@ Altyapı health check.
   "lastIngestion": "2026-03-15T08:00:00Z"
 }
 ```
+
+---
+
+## Lokalizasyon
+
+API, `Accept-Language` header'ına göre yanıt dilini belirler. ASP.NET Core `RequestLocalizationMiddleware` kullanılır.
+
+| Değer | Davranış |
+|-------|----------|
+| `tr`, `tr-TR` | Türkçe yanıt (varsayılan) |
+| `en`, `en-US` | İngilizce yanıt |
+| Header yok | Türkçe (varsayılan) |
+
+Lokalize edilen alanlar:
+- **`displayName`** — Asset isimleri (ör. `"Dolar/TL"` → `"Dollar/TRY"`)
+- **`assetDisplayName`** — Hesaplama ve senaryo yanıtlarındaki asset isimleri
+- **ProblemDetails `title`/`detail`** — Hata mesajları
+
+`.resx` kaynak dosyaları: `Resources/ErrorMessages.resx` (Türkçe), `Resources/ErrorMessages.en.resx` (İngilizce).
+
+Flutter istemcisi `LanguageInterceptor` ile her istekte `Accept-Language` header'ını kullanıcının dil tercihine göre gönderir.
 
 ---
 
