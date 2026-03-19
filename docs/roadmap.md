@@ -253,7 +253,7 @@ gantt
 
 **Kabul Kriterleri:**
 - [ ] Channel pattern ile non-blocking yazım
-- [ ] 8 action türü loglanır (+ yeni: dca, reverse, trend, share)
+- [ ] 11 action türü loglanır (what_if_calculate/compare/dca/reverse, scenario_save/delete/list, assets_list, asset_price, asset_price_range, config_fetch)
 - [ ] Client header'ları gönderir (OS, version)
 - [ ] IP maskeleme (KVKK)
 - [ ] Temel materialized view'lar (DAU, popüler varlıklar)
