@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saydın — Ya Alsaydım?</title>
+    <style>
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --border: #2a2d3a;
+            --text: #e4e4e7;
+            --text-muted: #a1a1aa;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        .container {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 48px 24px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+        nav {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 24px;
+        }
+        nav a {
+            color: var(--accent-light);
+            text-decoration: none;
+            padding: 8px 20px;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+        nav a:hover {
+            background: var(--surface);
+            border-color: var(--accent);
+        }
+        .hero {
+            text-align: center;
+            padding: 64px 0;
+        }
+        .hero h2 {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: var(--text-muted);
+        }
+        .hero p {
+            color: var(--text-muted);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        footer {
+            text-align: center;
+            margin-top: 64px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+        footer a { color: var(--accent-light); text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Saydın</h1>
+            <p>Ya Alsaydım? — Finansal "Ya O Zaman Alsaydım?" Hesaplayıcı</p>
+            <nav>
+                <a href="privacy-policy.html">Gizlilik Politikası</a>
+                <a href="terms.html">Kullanım Koşulları</a>
+                <a href="support.html">Destek</a>
+            </nav>
+        </header>
+
+        <div class="hero">
+            <h2>Merak ettiğin yatırımı hesapla</h2>
+            <p>Dolar, altın, Bitcoin ve daha fazlası... Geçmişte alsaydın ne kadar kazanır ya da kaybederdin?</p>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Saydın. İletişim: <a href="mailto:saydinapp@gmail.com">saydinapp@gmail.com</a></p>
+        </footer>
+    </div>
+</body>
+</html>

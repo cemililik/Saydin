@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Destek — Saydın</title>
+    <style>
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --border: #2a2d3a;
+            --text: #e4e4e7;
+            --text-muted: #a1a1aa;
+            --accent: #6366f1;
+            --accent-light: #818cf8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+        }
+        .container { max-width: 720px; margin: 0 auto; padding: 48px 24px; }
+        a { color: var(--accent-light); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+        .back { display: inline-block; margin-bottom: 32px; font-size: 0.9rem; }
+        h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 8px; }
+        .subtitle { color: var(--text-muted); margin-bottom: 40px; }
+        h2 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-top: 36px;
+            margin-bottom: 12px;
+            color: var(--accent-light);
+        }
+        p, li { color: var(--text-muted); margin-bottom: 12px; }
+        ul { padding-left: 24px; }
+        li { margin-bottom: 8px; }
+        .contact-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            text-align: center;
+        }
+        .contact-card .email {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-light);
+            display: block;
+            margin-top: 12px;
+        }
+        .faq-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin: 12px 0;
+        }
+        .faq-item strong { color: var(--text); display: block; margin-bottom: 8px; }
+        .faq-item p { margin-bottom: 0; }
+        footer {
+            text-align: center;
+            margin-top: 64px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back">&larr; Ana Sayfa</a>
+        <h1>Destek</h1>
+        <p class="subtitle">Sorularınız ve geri bildirimleriniz için buradayız.</p>
+
+        <div class="contact-card">
+            <p>Bize e-posta gönderin, en kısa sürede yanıtlayalım.</p>
+            <a href="mailto:saydinapp@gmail.com" class="email">saydinapp@gmail.com</a>
+        </div>
+
+        <h2>Sıkça Sorulan Sorular</h2>
+
+        <div class="faq-item">
+            <strong>Saydın nedir?</strong>
+            <p>Saydın, "Ya o zaman alsaydım?" sorusuna cevap veren bir finansal simülasyon aracıdır. Geçmiş tarihli fiyat verileriyle yatırım senaryoları oluşturabilirsiniz.</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>Hesap oluşturmam gerekiyor mu?</strong>
+            <p>Hayır. Saydın hesap oluşturma gerektirmez. Cihazınıza özel anonim bir kimlik ile çalışır.</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>Ücretsiz mi?</strong>
+            <p>Evet, Saydın ücretsiz olarak kullanılabilir. Ücretsiz kullanımda günlük hesaplama limiti vardır. Premium abonelik ile bu limitler kaldırılır.</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>Verilerim güvende mi?</strong>
+            <p>Evet. Kişisel bilgilerinizi toplamıyoruz. Detaylar için <a href="privacy-policy.html">Gizlilik Politikası</a> sayfamızı inceleyebilirsiniz.</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>Hesaplamalar ne kadar doğru?</strong>
+            <p>Hesaplamalar geçmiş fiyat verilerine dayanır. Tatil günlerinde en yakın iş günü fiyatı kullanılır. Sonuçlar bilgilendirme amaçlıdır, yatırım tavsiyesi değildir.</p>
+        </div>
+
+        <div class="faq-item">
+            <strong>Verilerimi sildirebilir miyim?</strong>
+            <p>Evet. <a href="mailto:saydinapp@gmail.com">saydinapp@gmail.com</a> adresine cihaz kimliğinizi içeren bir e-posta göndererek verilerinizin silinmesini talep edebilirsiniz.</p>
+        </div>
+
+        <footer>
+            <p>&copy; 2025 Saydın. <a href="index.html">Ana Sayfa</a></p>
+        </footer>
+    </div>
+</body>
+</html>
