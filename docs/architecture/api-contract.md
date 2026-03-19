@@ -254,6 +254,77 @@ Periyodik yatırım (DCA — Dollar Cost Averaging) simülasyonu. "Her ay 1.000 
 
 ---
 
+## POST /what-if/reverse
+
+Ters senaryo hesaplama. "Hedef tutara ulaşmak için ne kadar yatırmalıydım?" sorusunu yanıtlar. **1 hesaplama hakkı** tüketir.
+
+**Auth gerektirir:** `X-Device-ID`
+
+### Request
+
+```json
+{
+  "assetSymbol": "USDTRY",
+  "buyDate": "2020-03-01",
+  "sellDate": "2024-01-15",
+  "targetAmount": 100000,
+  "targetAmountType": "try",
+  "includeInflation": true
+}
+```
+
+| Alan | Tip | Zorunlu | Açıklama |
+|------|-----|---------|----------|
+| `assetSymbol` | string | ✓ | Asset sembolü |
+| `buyDate` | date (YYYY-MM-DD) | ✓ | Alım tarihi |
+| `sellDate` | date (YYYY-MM-DD) | — | Satış tarihi. Boş bırakılırsa bugün |
+| `targetAmount` | number | ✓ | Hedef tutar |
+| `targetAmountType` | enum | ✓ | `try` |
+| `includeInflation` | boolean | — | `true` ise reel getiri hesaplanır. Default: `false` |
+
+### Response 200
+
+```json
+{
+  "assetSymbol": "USDTRY",
+  "assetDisplayName": "Dolar/TL",
+  "buyDate": "2020-03-01",
+  "sellDate": "2024-01-15",
+  "buyPrice": 6.42,
+  "sellPrice": 30.18,
+  "requiredInvestmentTry": 21272.36,
+  "targetValueTry": 100000.00,
+  "profitLossTry": 78727.64,
+  "profitLossPercent": 370.10,
+  "isProfit": true,
+  "cumulativeInflationPercent": 312.50,
+  "realProfitLossPercent": 13.98,
+  "inflationDataAsOf": "2023-11-01",
+  "actualBuyDate": null,
+  "actualSellDate": "2024-01-12",
+  "priceHistory": [
+    { "date": "2020-03-01", "price": 6.42 },
+    { "date": "2024-01-15", "price": 30.18 }
+  ]
+}
+```
+
+| Alan | Tip | Açıklama |
+|------|-----|----------|
+| `requiredInvestmentTry` | number | Hedefe ulaşmak için gereken başlangıç yatırımı (TL) |
+| `targetValueTry` | number | Hedef tutar (TL) |
+| `profitLossTry` | number | Kar/zarar (TL) |
+| `profitLossPercent` | number | Kar/zarar (%) |
+| `cumulativeInflationPercent` | number \| null | Kümülatif TÜFE enflasyonu (%) |
+| `realProfitLossPercent` | number \| null | Reel getiri (%) |
+| `priceHistory` | array | Grafik için fiyat noktaları (max 60) |
+
+### Response 404 / 422 / 429
+
+`/what-if/calculate` ile aynı hata yapısı.
+
+---
+
 ## GET /assets
 
 Desteklenen tüm asset'lerin listesi.
@@ -383,7 +454,7 @@ Kullanıcının "ya alsaydım?" senaryosunu kaydeder.
 | `amountType` | enum | ✓ | `try` \| `units` \| `grams` |
 | `type` | enum | ✓ | `what_if` \| `comparison` \| `portfolio` \| `dca` |
 | `label` | string | — | Kullanıcının kendi notu |
-| `extraData` | object | — | Tipe özgü ek veriler (DCA: `{ period, periodicAmount, includeInflation }`) |
+| `extraData` | object | — | Tipe özgü ek veriler. DCA: `{ period, periodicAmount, includeInflation }`. Ters senaryo: `{ mode: 'reverse', includeInflation }` |
 
 ### Response 201
 

@@ -29,7 +29,7 @@ Saydın, "ya alsaydım?" sorusunun **en güvenilir, en kolay ve en eğlenceli** 
 | Hesaplamada fiyat geçmişi | Canlı | Yanıtta 60 noktalık grafik verisi |
 | Sentry hata takibi | Canlı | Client tarafı |
 | CI/CD pipeline | Canlı | GitHub Actions, Play Store upload, GitHub Release |
-| Onboarding | Canlı | 5 sayfalık akış, animasyonlu geçişler |
+| Onboarding | Canlı | 6 sayfalık akış (ters senaryo sayfası dahil), animasyonlu geçişler |
 | DCA (Düzenli Yatırım) simülasyonu | Canlı | Haftalık/aylık periyod, enflasyon, paylaşım, senaryo kaydetme |
 
 ### Eksikler
@@ -38,7 +38,7 @@ Saydın, "ya alsaydım?" sorusunun **en güvenilir, en kolay ve en eğlenceli** 
 - Premium satın alma akışı yok
 - Activity logging yok — kullanıcı davranışını bilmiyoruz
 - Push notification yok
-- Ters senaryo yok
+- ~~Ters senaryo yok~~ → TAMAMLANDI (Faz 2.2)
 - Döviz çevirici yok
 
 ---
@@ -62,7 +62,7 @@ gantt
 
     section Faz 2 — Farklılaştırma
     DCA simülasyonu               :done, f2a, after f1c, 5d
-    Ters senaryo                  :f2b, after f2a, 4d
+    Ters senaryo                  :done, f2b, after f2a, 4d
     Trend/popüler                 :f2c, after f2b, 3d
     Döviz çevirici                :f2d, after f2c, 3d
 
@@ -117,7 +117,7 @@ gantt
 #### ~~1.5 Onboarding Ekranları~~ — TAMAMLANDI
 
 - [x] İlk açılışta gösterilir, tekrar gösterilmez (SharedPreferences flag)
-- [x] 5 sayfalık akış: Hesaplama → Karşılaştırma → Portföy → Düzenli Yatırım (DCA) → Paylaş & Kaydet
+- [x] 6 sayfalık akış: Hesaplama → Karşılaştırma → Portföy → Düzenli Yatırım (DCA) → Ters Senaryo → Paylaş & Kaydet
 - [x] Atlama butonu var
 - [x] Son sayfada "Hemen Dene" → hesaplama ekranına yönlendirme
 - [x] Animasyonlu geçişler (gradient arka plan, yüzen ikonlar, fade+slide içerik)
@@ -162,7 +162,7 @@ gantt
 - [x] Enflasyon düzeltmesi desteği
 - [x] Sonuç paylaşılabilir (mevcut share altyapısı)
 
-#### 2.2 Ters Senaryo (Hedef Hesaplama)
+#### ~~2.2 Ters Senaryo (Hedef Hesaplama)~~ — TAMAMLANDI
 
 | Detay | Değer |
 |-------|-------|
@@ -172,14 +172,25 @@ gantt
 | **Büyüklük:** | M |
 
 **Backend:**
-- Yeni endpoint: `POST /v1/what-if/reverse`
-- Request: `{ assetSymbol, buyDate, sellDate, targetAmount, targetAmountType }`
-- Response: gerekli başlangıç tutarı, kar/zarar oranı
+- Endpoint: `POST /v1/what-if/reverse`
+- Request: `{ assetSymbol, buyDate, sellDate, targetAmount, targetAmountType, includeInflation }`
+- Response: gerekli başlangıç tutarı, hedef değer, kar/zarar oranı, enflasyon düzeltmesi, fiyat geçmişi
+
+**Flutter:**
+- Hesapla sekmesinde `SegmentedButton<CalculationMode>` ile normal/ters mod geçişi
+- Ters modda yalnızca TL (`try`) tutar tipi seçilebilir
+- `ReverseResultCard` — gerekli yatırım, hedef değer, kar/zarar, enflasyon, grafik
+- `ReverseShareCardWidget` — paylaşım kartı
+- Senaryo kaydetme (`extraData.mode: 'reverse'`) + tekrar oynatma desteği
+- Onboarding'e ters senaryo sayfası eklendi (sayfa 5/6)
 
 **Kabul Kriterleri:**
-- [ ] Hedef tutar girişi (TL veya adet)
-- [ ] "Ne kadar yatırmalıydın?" sonucu
-- [ ] Sonuç paylaşılabilir
+- [x] Hedef tutar girişi (TL)
+- [x] "Ne kadar yatırmalıydın?" sonucu
+- [x] Sonuç paylaşılabilir
+- [x] Senaryo kaydetme ve tekrar oynatma
+- [x] Enflasyon düzeltmesi desteği
+- [x] Senaryo kartında "Ters Hesaplama" rozeti
 
 #### 2.3 Trend / Popüler Hesaplamalar
 
@@ -396,8 +407,8 @@ flowchart TD
     end
 
     subgraph F2["Faz 2 — Farklılaştırma"]
-        dca[DCA Simülasyonu]
-        reverse[Ters Senaryo]
+        dca[DCA Simülasyonu ✅]
+        reverse[Ters Senaryo ✅]
         trends[Trend/Popüler]
         converter[Döviz Çevirici]
     end
