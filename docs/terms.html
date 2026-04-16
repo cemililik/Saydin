@@ -1,110 +1,91 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kullanım Koşulları — Saydın</title>
-    <style>
-        :root {
-            --bg: #0f1117;
-            --surface: #1a1d27;
-            --border: #2a2d3a;
-            --text: #e4e4e7;
-            --text-muted: #a1a1aa;
-            --accent: #6366f1;
-            --accent-light: #818cf8;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-        }
-        .container { max-width: 720px; margin: 0 auto; padding: 48px 24px; }
-        a { color: var(--accent-light); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .back { display: inline-block; margin-bottom: 32px; font-size: 0.9rem; }
-        h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 8px; }
-        .updated { color: var(--text-muted); font-size: 0.875rem; margin-bottom: 40px; }
-        h2 {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-top: 36px;
-            margin-bottom: 12px;
-            color: var(--accent-light);
-        }
-        p, li { color: var(--text-muted); margin-bottom: 12px; }
-        ul { padding-left: 24px; }
-        li { margin-bottom: 8px; }
-        .highlight {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 16px 20px;
-            margin: 16px 0;
-        }
-        footer {
-            text-align: center;
-            margin-top: 64px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kullanim Kosullari — Saydin</title>
+  <meta name="description" content="Saydin uygulamasinin kullanim kosullari.">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
-        <a href="index.html" class="back">&larr; Ana Sayfa</a>
-        <h1>Kullanım Koşulları</h1>
-        <p class="updated">Son güncelleme: 19 Mart 2025</p>
 
-        <div class="highlight">
-            <strong>Özet:</strong> Saydın bir simülasyon aracıdır, yatırım tavsiyesi değildir. Hesaplama sonuçları geçmiş verilere dayanır ve gelecekteki getirileri garanti etmez.
-        </div>
+<nav class="navbar" role="navigation" aria-label="Ana navigasyon">
+  <div class="container">
+    <a href="index.html" class="nav-brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      Saydin
+    </a>
+    <button class="nav-hamburger" aria-expanded="false" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <ul class="nav-menu">
+      <li><a href="index.html">Ana Sayfa</a></li>
+      <li><a href="support.html">Destek</a></li>
+      <li><a href="privacy-policy.html">Gizlilik</a></li>
+      <li><a href="terms.html" class="active">Kosullar</a></li>
+    </ul>
+  </div>
+</nav>
 
-        <h2>1. Hizmet Tanımı</h2>
-        <p>Saydın ("Uygulama"), kullanıcıların geçmiş tarihli finansal varlık fiyatları üzerinden "Ya o zaman alsaydım?" simülasyonu yapmalarını sağlayan bir hesaplama aracıdır.</p>
+<main class="legal-page">
+  <div class="container-narrow">
+    <a href="index.html" class="back">&larr; Ana Sayfa</a>
+    <h1>Kullanim Kosullari</h1>
+    <p class="updated">Son guncelleme: 19 Mart 2025</p>
 
-        <h2>2. Yatırım Tavsiyesi Değildir</h2>
-        <p>Uygulama tarafından sunulan tüm hesaplamalar ve sonuçlar yalnızca <strong>bilgilendirme ve eğlence amaçlıdır</strong>. Saydın:</p>
-        <ul>
-            <li>Yatırım tavsiyesi vermez</li>
-            <li>Finansal danışmanlık hizmeti sunmaz</li>
-            <li>Gelecekteki getiri veya kayıp tahmini yapmaz</li>
-            <li>Herhangi bir varlığın alım-satımını önermez</li>
-        </ul>
-        <p>Yatırım kararlarınız için lisanslı bir finansal danışmana başvurmanızı öneririz.</p>
-
-        <h2>3. Veri Doğruluğu</h2>
-        <p>Uygulama üçüncü parti veri kaynaklarından elde edilen geçmiş fiyat verilerini kullanır. Bu verilerin doğruluğu garanti edilmez. Hesaplamalarda yuvarlama farkları, tatil günü kaymaları ve veri eksiklikleri oluşabilir.</p>
-
-        <h2>4. Kullanım Kuralları</h2>
-        <ul>
-            <li>Uygulamayı yalnızca kişisel ve yasal amaçlarla kullanabilirsiniz.</li>
-            <li>Uygulamanın teknik altyapısını bozmaya, tersine mühendislik yapmaya veya kötüye kullanmaya çalışamazsınız.</li>
-            <li>Otomatik sorgulama araçları (bot, scraper vb.) kullanarak aşırı yük oluşturamazsınız.</li>
-        </ul>
-
-        <h2>5. Ücretsiz ve Premium Kullanım</h2>
-        <p>Uygulama ücretsiz kullanılabilir. Ücretsiz kullanımda günlük hesaplama limiti uygulanır. Premium abonelik ile bu limitler kaldırılır. Abonelik koşulları uygulama içinde belirtilir.</p>
-
-        <h2>6. Sorumluluk Sınırı</h2>
-        <p>Saydın, uygulama kullanımından kaynaklanan doğrudan veya dolaylı zararlardan sorumlu tutulamaz. Uygulama "olduğu gibi" sunulmaktadır ve kesintisiz veya hatasız çalışacağı garanti edilmez.</p>
-
-        <h2>7. Değişiklikler</h2>
-        <p>Bu koşullar zaman zaman güncellenebilir. Uygulamayı kullanmaya devam etmeniz, güncel koşulları kabul ettiğiniz anlamına gelir.</p>
-
-        <h2>8. Uygulanacak Hukuk</h2>
-        <p>Bu koşullar Türkiye Cumhuriyeti hukukuna tabidir.</p>
-
-        <h2>9. İletişim</h2>
-        <p><strong>E-posta:</strong> <a href="mailto:saydinapp@gmail.com">saydinapp@gmail.com</a></p>
-
-        <footer>
-            <p>&copy; 2025 Saydın. <a href="index.html">Ana Sayfa</a></p>
-        </footer>
+    <div class="highlight-box">
+      <strong>Ozet:</strong> Saydin bir simulasyon aracidir, yatirim tavsiyesi degildir. Hesaplama sonuclari gecmis verilere dayanir ve gelecekteki getirileri garanti etmez.
     </div>
+
+    <h2>1. Hizmet Tanimi</h2>
+    <p>Saydin ("Uygulama"), kullanicilarin gecmis tarihli finansal varlik fiyatlari uzerinden "Ya o zaman alsaydim?" simulasyonu yapmalarini saglayan bir hesaplama aracidir.</p>
+
+    <h2>2. Yatirim Tavsiyesi Degildir</h2>
+    <p>Uygulama tarafindan sunulan tum hesaplamalar ve sonuclar yalnizca <strong>bilgilendirme ve eglence amaclidir</strong>. Saydin:</p>
+    <ul>
+      <li>Yatirim tavsiyesi vermez</li>
+      <li>Finansal danismanlik hizmeti sunmaz</li>
+      <li>Gelecekteki getiri veya kayip tahmini yapmaz</li>
+      <li>Herhangi bir varligin alim-satimini onermez</li>
+    </ul>
+    <p>Yatirim kararlariniz icin lisansli bir finansal danismana basvurmanizi oneririz.</p>
+
+    <h2>3. Veri Dogrulugu</h2>
+    <p>Uygulama ucuncu parti veri kaynaklarindan elde edilen gecmis fiyat verilerini kullanir. Bu verilerin dogrulugu garanti edilmez. Hesaplamalarda yuvarlama farklari, tatil gunu kaymalari ve veri eksiklikleri olusabilir.</p>
+
+    <h2>4. Kullanim Kurallari</h2>
+    <ul>
+      <li>Uygulamayi yalnizca kisisel ve yasal amaclarla kullanabilirsiniz.</li>
+      <li>Uygulamanin teknik altyapisini bozmaya, tersine muhendislik yapmaya veya kotuye kullanmaya calisamazsiniz.</li>
+      <li>Otomatik sorgulama araclari (bot, scraper vb.) kullanarak asiri yuk olusturamazsiniz.</li>
+    </ul>
+
+    <h2>5. Ucretsiz ve Premium Kullanim</h2>
+    <p>Uygulama ucretsiz kullanilabilir. Ucretsiz kullanimda gunluk hesaplama limiti uygulanir. Premium abonelik ile bu limitler kaldirilir. Abonelik kosullari uygulama icinde belirtilir.</p>
+
+    <h2>6. Sorumluluk Siniri</h2>
+    <p>Saydin, uygulama kullanimindan kaynaklanan dogrudan veya dolayli zararlardan sorumlu tutulamaz. Uygulama "oldugu gibi" sunulmaktadir ve kesintisiz veya hatasiz calisacagi garanti edilmez.</p>
+
+    <h2>7. Degisiklikler</h2>
+    <p>Bu kosullar zaman zaman guncellenebilir. Uygulamayi kullanmaya devam etmeniz, guncel kosullari kabul ettiginiz anlamina gelir.</p>
+
+    <h2>8. Uygulanacak Hukuk</h2>
+    <p>Bu kosullar Turkiye Cumhuriyeti hukukuna tabidir.</p>
+
+    <h2>9. Iletisim</h2>
+    <p><a href="mailto:saydinapp@gmail.com">saydinapp@gmail.com</a></p>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="margin-top:0; padding-top:0; border-top:none;">
+      <span>&copy; 2025 Saydin. Tum haklari saklidir.</span>
+      <span><a href="index.html">Ana Sayfa</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
 </body>
 </html>

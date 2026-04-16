@@ -18,8 +18,9 @@ infrastructure/
 # Postman
 postman/
 
-# Review raporları (lokal, commit edilmez)
+# Review raporları ve analizler (lokal, commit edilmez)
 docs/reviews/
+docs/analysis/
 saydin-release.jks
 docs/architecture/activity-logging.md
 docs/roadmap.md

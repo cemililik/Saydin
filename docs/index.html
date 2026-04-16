@@ -1,107 +1,268 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saydın — Ya Alsaydım?</title>
-    <style>
-        :root {
-            --bg: #0f1117;
-            --surface: #1a1d27;
-            --border: #2a2d3a;
-            --text: #e4e4e7;
-            --text-muted: #a1a1aa;
-            --accent: #6366f1;
-            --accent-light: #818cf8;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-        }
-        .container {
-            max-width: 720px;
-            margin: 0 auto;
-            padding: 48px 24px;
-        }
-        header {
-            text-align: center;
-            margin-bottom: 48px;
-        }
-        header h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        header p {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
-        nav {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            margin-top: 24px;
-        }
-        nav a {
-            color: var(--accent-light);
-            text-decoration: none;
-            padding: 8px 20px;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            transition: all 0.2s;
-        }
-        nav a:hover {
-            background: var(--surface);
-            border-color: var(--accent);
-        }
-        .hero {
-            text-align: center;
-            padding: 64px 0;
-        }
-        .hero h2 {
-            font-size: 1.5rem;
-            margin-bottom: 16px;
-            color: var(--text-muted);
-        }
-        .hero p {
-            color: var(--text-muted);
-            max-width: 500px;
-            margin: 0 auto;
-        }
-        footer {
-            text-align: center;
-            margin-top: 64px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
-        footer a { color: var(--accent-light); text-decoration: none; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Saydin — Ya Alsaydim?</title>
+  <meta name="description" content="Gecmiste alsaydin ne kadar kazanir ya da kaybederdin? Doviz, altin, kripto ve hisse senedinde yatirim simulasyonu.">
+  <meta name="theme-color" content="#0f1117">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Saydın</h1>
-            <p>Ya Alsaydım? — Finansal "Ya O Zaman Alsaydım?" Hesaplayıcı</p>
-            <nav>
-                <a href="privacy-policy.html">Gizlilik Politikası</a>
-                <a href="terms.html">Kullanım Koşulları</a>
-                <a href="support.html">Destek</a>
-            </nav>
-        </header>
 
-        <div class="hero">
-            <h2>Merak ettiğin yatırımı hesapla</h2>
-            <p>Dolar, altın, Bitcoin ve daha fazlası... Geçmişte alsaydın ne kadar kazanır ya da kaybederdin?</p>
-        </div>
+<!-- ── Navbar ───────────────────────────────────────────────── -->
+<nav class="navbar" role="navigation" aria-label="Ana navigasyon">
+  <div class="container">
+    <a href="index.html" class="nav-brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
+        <polyline points="16 7 22 7 22 13"/>
+      </svg>
+      Saydin
+    </a>
 
-        <footer>
-            <p>&copy; 2025 Saydın. İletişim: <a href="mailto:saydinapp@gmail.com">saydinapp@gmail.com</a></p>
-        </footer>
+    <button class="nav-hamburger" aria-expanded="false" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <line x1="3" y1="12" x2="21" y2="12"/>
+        <line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+
+    <ul class="nav-menu">
+      <li><a href="#features">Ozellikler</a></li>
+      <li><a href="#how">Nasil Calisir</a></li>
+      <li><a href="support.html">Destek</a></li>
+      <li><a href="privacy-policy.html">Gizlilik</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ── Hero ─────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-badge">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14 2 9.27l6.91-1.01z"/></svg>
+    Ucretsiz Finansal Simulasyon
+  </div>
+
+  <h1>Ya <span class="text-gradient hero-rotate" id="heroWord">Alsayd&#305;m</span> Ne Olurdu?</h1>
+
+  <p class="subtitle">Doviz, altin, Bitcoin ve hisse senedinde gecmise donuk yatirim simulasyonu. Dusundugun yatirimi hesapla, karsilastir, paylas.</p>
+
+  <div class="hero-actions">
+    <a href="https://play.google.com/store/apps/details?id=com.saydin.saydin" class="btn btn-primary" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Google Play
+    </a>
+    <a href="#features" class="btn btn-secondary">Ozellikleri Gor</a>
+  </div>
+</section>
+
+<!-- ── Stats ────────────────────────────────────────────────── -->
+<div class="section">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-value">5+</div>
+        <div class="stat-label">Varlik Sinifi</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">4</div>
+        <div class="stat-label">Hesaplama Modu</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">50+</div>
+        <div class="stat-label">Varlik Cesidi</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-value">%100</div>
+        <div class="stat-label">Ucretsiz</div>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- ── Features ─────────────────────────────────────────────── -->
+<section id="features" class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>Her Senaryo Icin Bir Hesaplama</h2>
+      <p>Tekli yatirimdan duzenli birikime, karsilastirmadan ters senaryoya — tum yatirim sorularini cevapla.</p>
+    </div>
+
+    <div class="features-grid">
+      <!-- 1 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+        </div>
+        <h3>Ya Alsaydim Hesaplama</h3>
+        <p>Belirli bir tarihte belirli bir varliga yatirim yapsaydin bugunku degeri ne olurdu? Tek tikla hesapla.</p>
+      </div>
+      <!-- 2 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <h3>Varlik Karsilastirma</h3>
+        <p>Ayni tarihte farkli varliklara yatirim yapsaydin hangisi daha cok kazandirirdi? Yan yana karsilastir.</p>
+      </div>
+      <!-- 3 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+        </div>
+        <h3>Duzenli Yatirim (DCA)</h3>
+        <p>Her ay 1.000 TL dolar alsaydim bugun ne kadar olurdu? Duzenli yatirim simulasyonu ile hesapla.</p>
+      </div>
+      <!-- 4 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/><line x1="11" y1="8" x2="11" y2="14"/></svg>
+        </div>
+        <h3>Hedef Tutara Gore Hesapla</h3>
+        <p>100.000 TL'ye ulasmak icin 2020'de ne kadar Bitcoin almaliydin? Tersten hesapla.</p>
+      </div>
+      <!-- 5 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"/><path d="M22 12A10 10 0 0 0 12 2v10z"/></svg>
+        </div>
+        <h3>Portfoy Simulasyonu</h3>
+        <p>Birden fazla varlikla portfoy olustur, getirini hesapla, dagılimini gor.</p>
+      </div>
+      <!-- 6 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Enflasyon Duzeltmesi</h3>
+        <p>Nominal getiri degil, reel getiriyi gor. TUFE verileriyle enflasyonun etkisini cikar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works ─────────────────────────────────────────── -->
+<section id="how" class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Nasil Calisir?</h2>
+      <p>4 adimda gecmise donuk yatirim senaryonu hesapla.</p>
+    </div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-number">1</div>
+        <h3>Varlik Sec</h3>
+        <p>Doviz, altin, kripto veya hisse senedi arasindan varligini sec.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">2</div>
+        <h3>Tarih Belirle</h3>
+        <p>Hangi tarihte alsaydin? Baslangic tarihini gir.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">3</div>
+        <h3>Tutar Gir</h3>
+        <p>Ne kadar yatirim yapardın? TL veya adet olarak tutarini belirle.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-number">4</div>
+        <h3>Sonucu Gor</h3>
+        <p>Kar/zarar, reel getiri, grafik — sonucunu hesapla ve paylas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Assets ───────────────────────────────────────────────── -->
+<section class="section section-alt">
+  <div class="container">
+    <div class="section-header">
+      <h2>Desteklenen Varlik Siniflari</h2>
+      <p>TCMB, CoinGecko, TwelveData ve daha fazla kaynaktan guvenilir veriler.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <h3>Doviz</h3>
+        <p>USD, EUR, GBP ve daha fazlasi. TCMB resmi kurlarindan gecmis veriler.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Degerli Madenler</h3>
+        <p>Altin (gram/ons), gumus ve diger degerli madenler.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        </div>
+        <h3>Kripto Paralar</h3>
+        <p>Bitcoin, Ethereum ve populer kripto varliklar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ──────────────────────────────────────────────────── -->
+<section class="section">
+  <div class="container">
+    <div class="cta-card">
+      <h2>Hemen Dene</h2>
+      <p>Ucretsiz indir, merak ettigin yatirimi hesapla. Hesap olusturmaya gerek yok.</p>
+      <a href="https://play.google.com/store/apps/details?id=com.saydin.saydin" class="btn btn-primary" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Google Play'den Indir
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ──────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-brand-name">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+          Saydin
+        </div>
+        <p>"Ya alsaydim?" sorusunun en kolay cevabi. Gecmise donuk yatirim simulasyonu.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Urun</h4>
+        <a href="#features">Ozellikler</a>
+        <a href="#how">Nasil Calisir</a>
+        <a href="https://play.google.com/store/apps/details?id=com.saydin.saydin" target="_blank" rel="noopener">Google Play</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Destek</h4>
+        <a href="support.html">SSS</a>
+        <a href="mailto:saydinapp@gmail.com">Iletisim</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Yasal</h4>
+        <a href="privacy-policy.html">Gizlilik Politikasi</a>
+        <a href="terms.html">Kullanim Kosullari</a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2025 Saydin. Tum haklari saklidir.</span>
+      <span>Yatirim tavsiyesi degildir.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
 </body>
 </html>

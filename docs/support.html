@@ -1,122 +1,101 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Destek — Saydın</title>
-    <style>
-        :root {
-            --bg: #0f1117;
-            --surface: #1a1d27;
-            --border: #2a2d3a;
-            --text: #e4e4e7;
-            --text-muted: #a1a1aa;
-            --accent: #6366f1;
-            --accent-light: #818cf8;
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-        }
-        .container { max-width: 720px; margin: 0 auto; padding: 48px 24px; }
-        a { color: var(--accent-light); text-decoration: none; }
-        a:hover { text-decoration: underline; }
-        .back { display: inline-block; margin-bottom: 32px; font-size: 0.9rem; }
-        h1 { font-size: 1.75rem; font-weight: 700; margin-bottom: 8px; }
-        .subtitle { color: var(--text-muted); margin-bottom: 40px; }
-        h2 {
-            font-size: 1.15rem;
-            font-weight: 600;
-            margin-top: 36px;
-            margin-bottom: 12px;
-            color: var(--accent-light);
-        }
-        p, li { color: var(--text-muted); margin-bottom: 12px; }
-        ul { padding-left: 24px; }
-        li { margin-bottom: 8px; }
-        .contact-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            margin: 24px 0;
-            text-align: center;
-        }
-        .contact-card .email {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--accent-light);
-            display: block;
-            margin-top: 12px;
-        }
-        .faq-item {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 16px 20px;
-            margin: 12px 0;
-        }
-        .faq-item strong { color: var(--text); display: block; margin-bottom: 8px; }
-        .faq-item p { margin-bottom: 0; }
-        footer {
-            text-align: center;
-            margin-top: 64px;
-            padding-top: 24px;
-            border-top: 1px solid var(--border);
-            color: var(--text-muted);
-            font-size: 0.875rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Destek — Saydin</title>
+  <meta name="description" content="Saydin destek sayfasi. Sikca sorulan sorular ve iletisim.">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <div class="container">
-        <a href="index.html" class="back">&larr; Ana Sayfa</a>
-        <h1>Destek</h1>
-        <p class="subtitle">Sorularınız ve geri bildirimleriniz için buradayız.</p>
 
-        <div class="contact-card">
-            <p>Bize e-posta gönderin, en kısa sürede yanıtlayalım.</p>
-            <a href="mailto:saydinapp@gmail.com" class="email">saydinapp@gmail.com</a>
-        </div>
+<nav class="navbar" role="navigation" aria-label="Ana navigasyon">
+  <div class="container">
+    <a href="index.html" class="nav-brand">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      Saydin
+    </a>
+    <button class="nav-hamburger" aria-expanded="false" aria-label="Menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <ul class="nav-menu">
+      <li><a href="index.html">Ana Sayfa</a></li>
+      <li><a href="support.html" class="active">Destek</a></li>
+      <li><a href="privacy-policy.html">Gizlilik</a></li>
+      <li><a href="terms.html">Kosullar</a></li>
+    </ul>
+  </div>
+</nav>
 
-        <h2>Sıkça Sorulan Sorular</h2>
+<main class="legal-page">
+  <div class="container-narrow">
+    <a href="index.html" class="back">&larr; Ana Sayfa</a>
+    <h1>Destek</h1>
+    <p class="updated">Sorulariniz ve geri bildirimleriniz icin buradayiz.</p>
 
-        <div class="faq-item">
-            <strong>Saydın nedir?</strong>
-            <p>Saydın, "Ya o zaman alsaydım?" sorusuna cevap veren bir finansal simülasyon aracıdır. Geçmiş tarihli fiyat verileriyle yatırım senaryoları oluşturabilirsiniz.</p>
-        </div>
-
-        <div class="faq-item">
-            <strong>Hesap oluşturmam gerekiyor mu?</strong>
-            <p>Hayır. Saydın hesap oluşturma gerektirmez. Cihazınıza özel anonim bir kimlik ile çalışır.</p>
-        </div>
-
-        <div class="faq-item">
-            <strong>Ücretsiz mi?</strong>
-            <p>Evet, Saydın ücretsiz olarak kullanılabilir. Ücretsiz kullanımda günlük hesaplama limiti vardır. Premium abonelik ile bu limitler kaldırılır.</p>
-        </div>
-
-        <div class="faq-item">
-            <strong>Verilerim güvende mi?</strong>
-            <p>Evet. Kişisel bilgilerinizi toplamıyoruz. Detaylar için <a href="privacy-policy.html">Gizlilik Politikası</a> sayfamızı inceleyebilirsiniz.</p>
-        </div>
-
-        <div class="faq-item">
-            <strong>Hesaplamalar ne kadar doğru?</strong>
-            <p>Hesaplamalar geçmiş fiyat verilerine dayanır. Tatil günlerinde en yakın iş günü fiyatı kullanılır. Sonuçlar bilgilendirme amaçlıdır, yatırım tavsiyesi değildir.</p>
-        </div>
-
-        <div class="faq-item">
-            <strong>Verilerimi sildirebilir miyim?</strong>
-            <p>Evet. <a href="mailto:saydinapp@gmail.com">saydinapp@gmail.com</a> adresine cihaz kimliğinizi içeren bir e-posta göndererek verilerinizin silinmesini talep edebilirsiniz.</p>
-        </div>
-
-        <footer>
-            <p>&copy; 2025 Saydın. <a href="index.html">Ana Sayfa</a></p>
-        </footer>
+    <div class="contact-card">
+      <p>Bize e-posta gonderin, en kisa surede yanitlayalim.</p>
+      <a href="mailto:saydinapp@gmail.com" class="email">saydinapp@gmail.com</a>
     </div>
+
+    <h2>Sikca Sorulan Sorular</h2>
+
+    <div class="faq-item">
+      <strong>Saydin nedir?</strong>
+      <p>Saydin, "Ya o zaman alsaydim?" sorusuna cevap veren bir finansal simulasyon aracidir. Gecmis tarihli fiyat verileriyle yatirim senaryolari olusturabilirsiniz.</p>
+    </div>
+
+    <div class="faq-item">
+      <strong>Hesap olusturmam gerekiyor mu?</strong>
+      <p>Hayir. Saydin hesap olusturma gerektirmez. Cihaziniza ozel anonim bir kimlik ile calisir.</p>
+    </div>
+
+    <div class="faq-item">
+      <strong>Ucretsiz mi?</strong>
+      <p>Evet, Saydin ucretsiz olarak kullanilabilir. Ucretsiz kullanimda gunluk hesaplama limiti vardir. Premium abonelik ile bu limitler kaldirilir.</p>
+    </div>
+
+    <div class="faq-item">
+      <strong>Hangi varlik turleri destekleniyor?</strong>
+      <p>Doviz (USD, EUR, GBP), degerli madenler (altin, gumus), kripto paralar (Bitcoin, Ethereum) ve BIST hisse senetleri desteklenmektedir.</p>
+    </div>
+
+    <div class="faq-item">
+      <strong>Verilerim guvende mi?</strong>
+      <p>Evet. Kisisel bilgilerinizi toplamiyoruz. Detaylar icin <a href="privacy-policy.html">Gizlilik Politikasi</a> sayfamizi inceleyebilirsiniz.</p>
+    </div>
+
+    <div class="faq-item">
+      <strong>Hesaplamalar ne kadar dogru?</strong>
+      <p>Hesaplamalar gecmis fiyat verilerine dayanir. Tatil gunlerinde en yakin is gunu fiyati kullanilir. Sonuclar bilgilendirme amaclidir, yatirim tavsiyesi degildir.</p>
+    </div>
+
+    <div class="faq-item">
+      <strong>Enflasyon duzeltmesi nedir?</strong>
+      <p>Nominal getiri yerine reel getiriyi gosterir. TUFE verileri kullanilarak enflasyonun yatirim getirisine etkisi cikarilir.</p>
+    </div>
+
+    <div class="faq-item">
+      <strong>DCA (Duzenli Yatirim) simulasyonu nasil calisir?</strong>
+      <p>Belirli bir donemde haftalik veya aylik olarak duzenli yatirim yapsaydiniz ne kadar birikecegini hesaplar. Ortalama maliyet, toplam yatirim ve guncel degeri gosterir.</p>
+    </div>
+
+    <div class="faq-item">
+      <strong>Verilerimi sildirebilir miyim?</strong>
+      <p>Evet. <a href="mailto:saydinapp@gmail.com">saydinapp@gmail.com</a> adresine cihaz kimliginizi iceren bir e-posta gondererek verilerinizin silinmesini talep edebilirsiniz.</p>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-bottom" style="margin-top:0; padding-top:0; border-top:none;">
+      <span>&copy; 2025 Saydin. Tum haklari saklidir.</span>
+      <span><a href="index.html">Ana Sayfa</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
 </body>
 </html>
