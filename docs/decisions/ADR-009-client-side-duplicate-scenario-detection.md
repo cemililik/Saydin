@@ -79,6 +79,6 @@ Gelecekte premium kullanıcıların birden fazla cihazdan aynı hesaba erişmesi
 
 ## İlgili Dosyalar
 
-- `src/Saydin.Client/lib/features/scenarios/presentation/bloc/scenarios_bloc.dart`
-- `src/Saydin.Client/lib/features/scenarios/presentation/bloc/scenarios_state.dart`
-- `src/Saydin.Client/lib/features/what_if/presentation/pages/what_if_page.dart`
+- `saydin-client/lib/features/scenarios/presentation/bloc/scenarios_bloc.dart`
+- `saydin-client/lib/features/scenarios/presentation/bloc/scenarios_state.dart`
+- `saydin-client/lib/features/what_if/presentation/pages/what_if_page.dart`

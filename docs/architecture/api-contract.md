@@ -81,36 +81,76 @@ Ana hesaplama endpoint'i. "Ya alsaydım?" sorusunu yanıtlar.
 
 **Tarih düzeltme mantığı:** `actualBuyDate` / `actualSellDate` verildiğinde, alım/satım gerçekte o günde gerçekleşmiştir. Tercih sırası: seçilen tarihe ≤ olan en yakın işlem günü, bulunamazsa > olan ilk işlem günü (±7 gün penceresi).
 
-### Response 404
+> **Hata zarfı (RFC-7807 `application/problem+json`).** Tüm 4xx/5xx yanıtları
+> `Microsoft.AspNetCore.Mvc.ProblemDetails` ile **`Content-Type: application/problem+json`**
+> döner — istemcinin dallanması gereken **kararlı, lokalden bağımsız makine ayracı `code`
+> extension alanıdır** (`type` URI'si değişse bile sabittir; tam liste için bkz. aşağıdaki
+> **Hata Taksonomisi**). **Kaynak doğrusu:** `src/Saydin.Api/Exceptions/*ExceptionHandler.cs`
+> + `ApiErrorCodes.cs`. ASP.NET `Extensions`'ı `[JsonExtensionData]` ile **üst seviyeye
+> düzleştirir** (`code`, `limit`, `resetAt`, `nearestDates`, `feature`, `field` nested
+> `"extensions"` altında DEĞİL, doğrudan kök objededir). İstemci (`DioErrorMapper`) hem düz
+> hem nested okur.
+
+### Response 404 (`price-not-found`)
 
 ```json
 {
-  "error": "PRICE_NOT_FOUND",
-  "message": "2020-03-01 tarihinde USDTRY fiyatı bulunamadı.",
-  "nearestAvailableDates": ["2020-03-02", "2020-02-28"]
+  "type": "https://saydin.app/errors/price-not-found",
+  "title": "Fiyat bulunamadı",
+  "status": 404,
+  "detail": "2020-03-01 tarihinde USDTRY fiyatı bulunamadı.",
+  "traceId": "00-…",
+  "code": "price_not_found",
+  "nearestDates": ["2020-03-02", "2020-02-28"]
 }
 ```
 
-### Response 429 (Günlük limit)
+> `asset-not-found` (varlık sembolü tanınmıyor) da 404 döner ama
+> `type=https://saydin.app/errors/asset-not-found` ile ayrılır; istemci bunu
+> `AssetNotFoundError`'a eşler.
+
+### Response 429 (`daily-limit-exceeded`)
 
 ```json
 {
-  "error": "RATE_LIMIT_EXCEEDED",
-  "message": "Günlük hesaplama limitine ulaştınız.",
-  "extensions": {
-    "resetAt": "2026-03-17T00:00:00Z"
-  }
+  "type": "https://saydin.app/errors/daily-limit-exceeded",
+  "title": "Günlük limit aşıldı",
+  "status": 429,
+  "detail": "Günlük hesaplama limitine ulaştınız.",
+  "traceId": "00-…",
+  "code": "daily_limit_exceeded",
+  "limit": 20,
+  "resetAt": "2026-05-30T00:00:00.0000000+00:00"
 }
 ```
 
-`extensions.resetAt`: Limitin sıfırlanacağı UTC zaman damgası (ISO 8601). Flutter istemcisi bu alanı ayrıştırarak `DailyLimitError.resetAt` olarak saklar.
+`resetAt` (kök seviyede, offset'li ISO-8601): limitin sıfırlanacağı UTC zaman
+damgası. İstemci `DailyLimitError.resetAt` olarak saklar.
 
-### Response 422
+### Response 422 (`scenario-limit-exceeded`)
 
 ```json
 {
-  "error": "VALIDATION_ERROR",
-  "message": "buyDate, sellDate'den önce olmalıdır.",
+  "type": "https://saydin.app/errors/scenario-limit-exceeded",
+  "title": "Senaryo limiti aşıldı",
+  "status": 422,
+  "detail": "Ücretsiz planda en fazla 10 senaryo kaydedebilirsiniz.",
+  "traceId": "00-…",
+  "code": "scenario_limit_exceeded",
+  "limit": 10
+}
+```
+
+### Response 400 (`validation`)
+
+```json
+{
+  "type": "https://saydin.app/errors/validation",
+  "title": "Geçersiz istek",
+  "status": 400,
+  "detail": "buyDate, sellDate'den önce olmalıdır.",
+  "traceId": "00-…",
+  "code": "validation",
   "field": "buyDate"
 }
 ```
@@ -279,7 +319,7 @@ Ters senaryo hesaplama. "Hedef tutara ulaşmak için ne kadar yatırmalıydım?"
 | `buyDate` | date (YYYY-MM-DD) | ✓ | Alım tarihi |
 | `sellDate` | date (YYYY-MM-DD) | — | Satış tarihi. Boş bırakılırsa bugün |
 | `targetAmount` | number | ✓ | Hedef tutar |
-| `targetAmountType` | enum | ✓ | `try` |
+| `targetAmountType` | enum | ✓ | `try` \| `units` \| `grams` |
 | `includeInflation` | boolean | — | `true` ise reel getiri hesaplanır. Default: `false` |
 
 ### Response 200
@@ -312,7 +352,7 @@ Ters senaryo hesaplama. "Hedef tutara ulaşmak için ne kadar yatırmalıydım?"
 | Alan | Tip | Açıklama |
 |------|-----|----------|
 | `requiredInvestmentTry` | number | Hedefe ulaşmak için gereken başlangıç yatırımı (TL) |
-| `targetValueTry` | number | Hedef tutar (TL) |
+| `targetValueTry` | number | Hedef tutarın birim granülasyonuyla (6 hane) **ileri-tutarlı** hesaplanmış değeri — `unitsAcquired × sellPrice` ile birebir uyuşur (alt-kuruş yuvarlama). Girilen ham hedeften <0.01 TL sapabilir. (F4-3) |
 | `profitLossTry` | number | Kar/zarar (TL) |
 | `profitLossPercent` | number | Kar/zarar (%) |
 | `cumulativeInflationPercent` | number \| null | Kümülatif TÜFE enflasyonu (%) |
@@ -386,9 +426,13 @@ Belirli bir tarihte tek fiyat noktası.
 
 ```json
 {
-  "error": "PRICE_NOT_FOUND",
-  "message": "2023-06-15 tarihinde USDTRY fiyatı bulunamadı.",
-  "nearestAvailableDates": ["2023-06-14", "2023-06-16"]
+  "type": "https://saydin.app/errors/price-not-found",
+  "title": "Fiyat bulunamadı",
+  "status": 404,
+  "detail": "2023-06-15 tarihinde USDTRY fiyatı bulunamadı.",
+  "traceId": "00-…",
+  "code": "price_not_found",
+  "nearestDates": ["2023-06-14", "2023-06-16"]
 }
 ```
 
@@ -474,16 +518,23 @@ Kullanıcının "ya alsaydım?" senaryosunu kaydeder.
 }
 ```
 
-### Response 429 (Free tier limit)
+### Response 422 (Free tier limit — `scenario-limit-exceeded`)
 
 ```json
 {
-  "error": "SCENARIO_LIMIT_REACHED",
-  "message": "Ücretsiz hesapta en fazla 5 senaryo kaydedilebilir.",
-  "currentCount": 5,
-  "limit": 5
+  "type": "https://saydin.app/errors/scenario-limit-exceeded",
+  "title": "Senaryo limiti aşıldı",
+  "status": 422,
+  "detail": "Ücretsiz planda en fazla 10 senaryo kaydedebilirsiniz.",
+  "traceId": "00-…",
+  "code": "scenario_limit_exceeded",
+  "limit": 10
 }
 ```
+
+> NOT: Senaryo limiti **422** döner (geçerli istek, domain kuralı ihlali) —
+> günlük hesaplama limiti (`daily-limit-exceeded`) ise **429**. İkisi ayrı
+> `type` URI'leriyle ayrılır.
 
 ---
 
@@ -531,8 +582,12 @@ Boş body.
 
 ```json
 {
-  "error": "SCENARIO_NOT_FOUND",
-  "message": "Senaryo bulunamadı."
+  "type": "https://saydin.app/errors/scenario-not-found",
+  "title": "Senaryo bulunamadı",
+  "status": 404,
+  "detail": "Senaryo bulunamadı.",
+  "traceId": "00-…",
+  "code": "scenario_not_found"
 }
 ```
 
@@ -576,14 +631,53 @@ Flutter istemcisi `LanguageInterceptor` ile her istekte `Accept-Language` header
 
 ---
 
-## Hata Kodları
+## Hata Taksonomisi (RFC 7807)
 
-| Kod | HTTP Status | Açıklama |
-|-----|-------------|----------|
-| `PRICE_NOT_FOUND` | 404 | Belirtilen tarihte fiyat verisi yok |
-| `ASSET_NOT_FOUND` | 404 | Asset sembolü tanınmıyor |
-| `SCENARIO_NOT_FOUND` | 404 | Senaryo bulunamadı |
-| `VALIDATION_ERROR` | 422 | Request doğrulama hatası |
-| `SCENARIO_LIMIT_REACHED` | 429 | Free tier senaryo limiti aşıldı |
-| `RATE_LIMIT_EXCEEDED` | 429 | Günlük hesaplama limiti aşıldı |
-| `INTERNAL_ERROR` | 500 | Sunucu hatası |
+> **Hata zarfı.** Tüm 4xx/5xx yanıtları **`Content-Type: application/problem+json`** ile RFC 7807
+> `ProblemDetails` döner (EC-4). İstemcinin dallanma için kullanması gereken **kararlı, lokalden
+> bağımsız makine ayracı `code` extension alanıdır** (EC-3) — `type` URI'si ileride değişse bile
+> `code` sabittir. `title`/`detail` `Accept-Language`'e göre lokalizedir (ham anahtar değildir).
+> ASP.NET `Extensions`'ı `[JsonExtensionData]` ile **kök objeye düzleştirir** (`code`, `limit`,
+> `resetAt`, `nearestDates`, `feature`, `field` nested `"extensions"` altında DEĞİL, doğrudan
+> köktedir). **Kaynak doğrusu:** `src/Saydin.Api/Exceptions/*ExceptionHandler.cs` +
+> `src/Saydin.Api/Exceptions/ApiErrorCodes.cs`. (Önceki sürüm `type` URI'sini tek ayraç sayıyordu;
+> EC-3 ile `code` eklendi, mantıksal `XXX_ERROR` sütunu kaldırıldı.)
+
+| `code` | HTTP | `type` (URI slug) | Ek alanlar | Açıklama |
+|--------|------|-------------------|-----------|----------|
+| `validation` | 400 | `…/errors/validation` | `field?` | Request doğrulama hatası (domain `ValidationException`) |
+| `missing_device_id` | 400 | `…/errors/missing-device-id` | — | `X-Device-ID` header yok/boş (RequireDeviceId filter) |
+| `invalid_device_id` | 400 | `…/errors/invalid-device-id` | — | `X-Device-ID` biçimi geçersiz (≤128 char, `[A-Za-z0-9._-]`) |
+| `feature_disabled` | 403 | `…/errors/feature-disabled` | `feature?` | Özellik plan/tier'da kapalı (paywall; `/v1/config`'te görünür, 404 değil) |
+| `price_not_found` | 404 | `…/errors/price-not-found` | `nearestDates[]` | Belirtilen tarihte fiyat verisi yok |
+| `asset_not_found` | 404 | `…/errors/asset-not-found` | — | Asset sembolü tanınmıyor |
+| `scenario_not_found` | 404 | `…/errors/scenario-not-found` | — | Senaryo bulunamadı / bu cihaza ait değil |
+| `scenario_limit_exceeded` | 422 | `…/errors/scenario-limit-exceeded` | `limit` | Free tier senaryo limiti (geçerli istek, domain kuralı ihlali) |
+| `daily_limit_exceeded` | 429 | `…/errors/daily-limit-exceeded` | `limit`, `resetAt` | Günlük hesaplama/sorgu limiti |
+| `rate_limited` | 429 | `…/errors/rate-limited` | (`Retry-After` header) | IP-bazlı altyapı throttle (config-gated, varsayılan kapalı) |
+| `external_api` | 502 | `…/errors/external-api` | — | Dış finansal API geçici hatası (upstream kaynak adı gövdeye **sızdırılmaz**, EC-9) |
+| `internal_error` | 500 | `…/errors/internal-error` | — | Beklenmeyen sunucu hatası (catch-all; teknik mesaj/stack gövdeye sızmaz) |
+
+Tüm yanıtlar ayrıca `traceId` taşır (log korelasyonu). İstemci **`code`'a göre** map'lemeli;
+`type` URI slug'ı `code` ile birebir eşleşir (kebab-case slug ↔ snake_case code).
+
+### DeviceId 400 örneği (`missing-device-id`)
+
+```json
+{
+  "type": "https://saydin.app/errors/missing-device-id",
+  "title": "X-Device-ID gerekli",
+  "status": 400,
+  "detail": "Bu endpoint'e erişmek için X-Device-ID header'ı tek, boş olmayan bir değerle gönderilmelidir.",
+  "traceId": "00-…",
+  "code": "missing_device_id"
+}
+```
+
+### `Share` özelliği — yalnızca istemci-tarafı gating (EC-7)
+
+`Share` özelliği **sunucuda enforce EDİLMEZ** (free+premium için `Share=true`, kodda throw site'ı
+yoktur). Server `share` için **hiçbir zaman 403/`feature-disabled` dönmez**; bu özelliğin gating'i
+tamamen istemci tarafındadır. İstemci `share` için `feature-disabled` yanıtı **beklememelidir**.
+(Karar: backend; ileride premium-only yapılırsa `FeatureDisabledException(featureKey:"share")`
+eklenir ve bu not + taksonomi güncellenir.)

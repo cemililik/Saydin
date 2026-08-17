@@ -5,9 +5,6 @@ Thumbs.db
 # Claude Code
 .claude/
 
-# Alt repolar (ayrı git repoları olarak yönetilir)
-src/
-
 # Root seviyesinde kalan ama artık saydin-services'e taşınan dosyalar
 docker-compose.yml
 infrastructure/

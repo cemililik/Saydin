@@ -107,6 +107,6 @@ BLoC yalnızca state emit eder — ekstra kanal veya callback yok. Widget-BLoC i
 
 ## İlgili Dosyalar
 
-- `src/Saydin.Client/lib/features/what_if/presentation/bloc/what_if_state.dart`
-- `src/Saydin.Client/lib/features/what_if/presentation/bloc/what_if_bloc.dart`
-- `src/Saydin.Client/lib/features/what_if/presentation/pages/what_if_page.dart`
+- `saydin-client/lib/features/what_if/presentation/bloc/what_if_state.dart`
+- `saydin-client/lib/features/what_if/presentation/bloc/what_if_bloc.dart`
+- `saydin-client/lib/features/what_if/presentation/pages/what_if_page.dart`

@@ -9,13 +9,26 @@
 | Flutter SDK | 3.41.0 | flutter.dev |
 | Git | latest | git-scm.com |
 
+## Repo Yerleşimi
+
+Tüm repolar `~/Documents/Projects/` altında bağımsız olarak yer alır:
+
+```
+~/Documents/Projects/
+├── saydin-client/      (Flutter)
+├── saydin-services/    (Backend — Api, Shared, PriceIngestion + infrastructure + docker-compose)
+└── Saydın/             (Bu meta repo: docs, ADR'ler, runbook'lar)
+```
+
+Aşağıdaki komutlarda `cd` ifadeleri, repo'ların `Projects/` altındaki kardeş yerleşimini varsayar. Mutlak path tercih ediyorsan `~/Documents/Projects/...` olarak yazabilirsin.
+
 ---
 
 ## 1. Altyapıyı Başlat
 
 ```bash
-# docker-compose.yml src/Saydin.Services/ dizininde bulunur
-cd src/Saydin.Services
+# docker-compose.yml saydin-services kökündedir
+cd ~/Documents/Projects/saydin-services
 
 docker-compose up -d
 
@@ -42,9 +55,9 @@ Başlatılan servisler:
 ## 2. Veritabanı Migration
 
 ```bash
-# PostgreSQL'e bağlan ve migration'ı uygula
+# saydin-services kökünden
 docker exec -i saydin-postgres psql -U saydin -d saydin \
-    < src/Saydin.Services/infrastructure/postgres/migrations/001_initial.sql
+    < infrastructure/postgres/migrations/001_initial.sql
 ```
 
 Migration başarılı ise:
@@ -63,7 +76,7 @@ INSERT 0 8  ← seed verisi eklendi
 ## 3. Backend Servisleri Çalıştır
 
 ```bash
-cd src/Saydin.Services
+cd ~/Documents/Projects/saydin-services
 
 # API servisini başlat (port 5080)
 dotnet run --project src/Saydin.Api
@@ -74,17 +87,17 @@ dotnet run --project src/Saydin.PriceIngestion
 
 ### Ortam Değişkenleri
 
-`src/Saydin.Services/src/Saydin.Api/appsettings.Development.json` dosyasını **git'e commit etme**. Bunun yerine `dotnet user-secrets` kullan:
+`src/Saydin.Api/appsettings.Development.json` dosyasını **git'e commit etme**. Bunun yerine `dotnet user-secrets` kullan:
 
 ```bash
-cd src/Saydin.Services/src/Saydin.Api
+cd ~/Documents/Projects/saydin-services/src/Saydin.Api
 dotnet user-secrets set "ConnectionStrings:Postgres" "Host=localhost;Port=5432;Database=saydin;Username=saydin;Password=saydin_dev"
 dotnet user-secrets set "ConnectionStrings:Redis" "localhost:6379"
 ```
 
-`src/Saydin.Services/src/Saydin.PriceIngestion` için:
+`src/Saydin.PriceIngestion` için:
 ```bash
-cd src/Saydin.Services/src/Saydin.PriceIngestion
+cd ~/Documents/Projects/saydin-services/src/Saydin.PriceIngestion
 dotnet user-secrets set "ConnectionStrings:Postgres" "Host=localhost;Port=5432;Database=saydin;Username=saydin;Password=saydin_dev"
 dotnet user-secrets set "ExternalApis:CoinGecko:ApiKey" "<your-key>"
 dotnet user-secrets set "ExternalApis:GoldApi:ApiKey" "<your-key>"
@@ -133,7 +146,7 @@ http://localhost:5080/scalar/v1
 ## 5. Flutter Uygulamasını Çalıştır
 
 ```bash
-cd src/Saydin.Client
+cd ~/Documents/Projects/saydin-client
 
 # Bağımlılıkları yükle
 flutter pub get
@@ -190,11 +203,11 @@ flutter run \
 
 ```bash
 # Backend testleri
-cd src/Saydin.Services
+cd ~/Documents/Projects/saydin-services
 dotnet test
 
 # Flutter testleri (coverage raporu dahil)
-cd src/Saydin.Client
+cd ~/Documents/Projects/saydin-client
 flutter gen-l10n  # önce l10n kodu üret
 flutter test --coverage
 ```
@@ -245,7 +258,7 @@ Ya da doğrudan `appsettings.Development.json`'da konfigüre edilir (bkz. observ
 
 **PostgreSQL bağlanamıyor:**
 ```bash
-# src/Saydin.Services/ dizininden
+# saydin-services dizininden
 docker-compose logs saydin-postgres
 # "database system is ready" mesajını bekle
 ```

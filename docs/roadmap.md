@@ -318,6 +318,14 @@ gantt
 
 > **Kritik:** Temel hesaplama + enflasyon + paylaşma free'de açık kalır. Sınır, **miktar** üzerinden konur — özellik üzerinden değil.
 
+> **Not (MVP uygulaması — backend F4-2 / ADR-002):** Bu tablodaki **per-feature günlük
+> kotalar henüz ayrı ayrı uygulanmıyor.** Mevcut backend'de Tekli hesaplama, Karşılaştırma
+> ve Ters senaryo **paylaşılan** tek bir günlük havuzdan (free: 20/gün) düşer ve Karşılaştırma
+> sembol sayısından bağımsız **1 hesaplama** sayar; DCA ayrı bir havuz kullanır (limit 20).
+> Ayrı kotalar (Karşılaştırma=5, Ters=3, DCA=3) cömert-free-tier felsefesiyle uyumlu olarak
+> **post-MVP** hedefidir. Ürün ekibi bu rakamları kesinleştirdiğinde tablo ve backend
+> `PlanOptions` birlikte güncellenecek. Detay: backend `docs/decisions/ADR-002-compare-quota.md`.
+
 #### 4.2 Premium Abonelik Ekranı + RevenueCat
 
 | Detay | Değer |

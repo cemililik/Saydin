@@ -21,7 +21,7 @@ Sistem iki tier destekler:
 
 ### PlanOptions — Tier Tanımları
 
-**Dosya:** `src/Saydin.Services/src/Saydin.Api/Options/PlanOptions.cs`
+**Dosya:** `saydin-services/src/Saydin.Api/Options/PlanOptions.cs`
 
 ```csharp
 public class PlanOptions
@@ -53,7 +53,7 @@ public class FeatureOptions
 
 ### appsettings.json — Değerler
 
-**Dosya:** `src/Saydin.Services/src/Saydin.Api/appsettings.json` (satır 19-40)
+**Dosya:** `saydin-services/src/Saydin.Api/appsettings.json` (satır 19-40)
 
 ```json
 {
@@ -86,7 +86,7 @@ public class FeatureOptions
 
 ### DI Kaydı
 
-**Dosya:** `src/Saydin.Services/src/Saydin.Api/Program.cs` (satır 162-163)
+**Dosya:** `saydin-services/src/Saydin.Api/Program.cs` (satır 162-163)
 
 ```csharp
 builder.Services.Configure<PlanOptions>(
@@ -110,7 +110,7 @@ flowchart TD
 
 ### User Entity
 
-**Dosya:** `src/Saydin.Services/src/Saydin.Shared/Entities/User.cs`
+**Dosya:** `saydin-services/src/Saydin.Shared/Entities/User.cs`
 
 ```csharp
 public class User
@@ -125,7 +125,7 @@ public class User
 
 ### Device-ID Doğrulama Filtresi
 
-**Dosya:** `src/Saydin.Services/src/Saydin.Api/Endpoints/EndpointExtensions.cs` (satır 10-38)
+**Dosya:** `saydin-services/src/Saydin.Api/Endpoints/EndpointExtensions.cs` (satır 10-38)
 
 - Header zorunluluğu kontrol eder
 - Maks 128 karakter, izin verilen: harf, rakam, `-`, `_`, `.`
@@ -143,7 +143,7 @@ public class User
 
 ### Kontrol Noktası
 
-**Dosya:** `src/Saydin.Services/src/Saydin.Api/Services/WhatIfCalculator.cs`
+**Dosya:** `saydin-services/src/Saydin.Api/Services/WhatIfCalculator.cs`
 
 Bu kontrol **üç endpoint** için geçerlidir:
 - `POST /v1/what-if/calculate`
@@ -191,11 +191,11 @@ usage:whatif:{userId|deviceId}:{YYYY-MM-DD}
 ### Hata Fırlatma
 
 **Exception:** `DailyLimitExceededException`
-**Dosya:** `src/Saydin.Services/src/Saydin.Shared/Exceptions/DailyLimitExceededException.cs`
+**Dosya:** `saydin-services/src/Saydin.Shared/Exceptions/DailyLimitExceededException.cs`
 
 ### Hata Yakalama
 
-**Dosya:** `src/Saydin.Services/src/Saydin.Api/Exceptions/DailyLimitExceededExceptionHandler.cs`
+**Dosya:** `saydin-services/src/Saydin.Api/Exceptions/DailyLimitExceededExceptionHandler.cs`
 
 ```
 HTTP 429 Too Many Requests
@@ -215,7 +215,7 @@ HTTP 429 Too Many Requests
 
 ### Kontrol Noktası
 
-**Dosya:** `src/Saydin.Services/src/Saydin.Api/Services/SavedScenarioService.cs`
+**Dosya:** `saydin-services/src/Saydin.Api/Services/SavedScenarioService.cs`
 
 Bu kontrol `POST /v1/scenarios` endpoint'i için geçerlidir.
 
@@ -238,7 +238,7 @@ public async Task<SavedScenario> SaveScenarioAsync(...)
 
 ### Hata Yakalama
 
-**Dosya:** `src/Saydin.Services/src/Saydin.Api/Exceptions/ScenarioLimitExceededExceptionHandler.cs`
+**Dosya:** `saydin-services/src/Saydin.Api/Exceptions/ScenarioLimitExceededExceptionHandler.cs`
 
 ```
 HTTP 422 Unprocessable Entity
@@ -258,7 +258,7 @@ HTTP 422 Unprocessable Entity
 
 ### Config Endpoint
 
-**Dosya:** `src/Saydin.Services/src/Saydin.Api/Endpoints/AppConfigEndpoints.cs`
+**Dosya:** `saydin-services/src/Saydin.Api/Endpoints/AppConfigEndpoints.cs`
 
 `GET /v1/config` → kullanıcının tier'ine göre konfigürasyonu döner:
 
@@ -284,7 +284,7 @@ return Results.Ok(new AppConfigResponse
 
 ### Response Modeli
 
-**Dosya:** `src/Saydin.Services/src/Saydin.Api/Models/Responses/AppConfigResponse.cs`
+**Dosya:** `saydin-services/src/Saydin.Api/Models/Responses/AppConfigResponse.cs`
 
 ```csharp
 public record AppConfigResponse
@@ -325,7 +325,7 @@ public record AppFeatureFlags
 
 ### Domain Entity
 
-**Dosya:** `src/Saydin.Client/lib/features/config/domain/entities/app_config.dart`
+**Dosya:** `saydin-client/lib/features/config/domain/entities/app_config.dart`
 
 ```dart
 class AppConfig extends Equatable {
@@ -358,13 +358,13 @@ class AppConfig extends Equatable {
 
 ### Data Model
 
-**Dosya:** `src/Saydin.Client/lib/features/config/data/models/app_config_model.dart`
+**Dosya:** `saydin-client/lib/features/config/data/models/app_config_model.dart`
 
 Backend JSON'unu parse eder, null-safe default'larla.
 
 ### AppConfigCubit
 
-**Dosya:** `src/Saydin.Client/lib/features/config/presentation/cubit/app_config_cubit.dart`
+**Dosya:** `saydin-client/lib/features/config/presentation/cubit/app_config_cubit.dart`
 
 ```dart
 class AppConfigCubit extends Cubit<AppConfig> {
@@ -391,7 +391,7 @@ class AppConfigCubit extends Cubit<AppConfig> {
 
 ### 7.1 Enflasyon Toggle (3 sayfada kullanılır)
 
-**Widget:** `src/Saydin.Client/lib/core/widgets/inflation_toggle.dart`
+**Widget:** `saydin-client/lib/core/widgets/inflation_toggle.dart`
 
 ```dart
 // enabled=false ise switch devre dışı + "Premium" badge gösterilir
@@ -415,7 +415,7 @@ if (!enabled) ...[
 
 ### 7.2 Fiyat Geçmişi Tarih Kısıtlaması (3 sayfada)
 
-**Utility:** `src/Saydin.Client/lib/core/utils/date_range_utils.dart`
+**Utility:** `saydin-client/lib/core/utils/date_range_utils.dart`
 
 ```dart
 // priceHistoryMonths == 0 → premium, tüm geçmiş
@@ -492,7 +492,7 @@ UI → SnackBar: "Ücretsiz planda en fazla 10 senaryo kaydedebilirsiniz."
 
 ## 8. Lokalizasyon
 
-**Dosya:** `src/Saydin.Client/lib/l10n/app_localizations_tr.dart`
+**Dosya:** `saydin-client/lib/l10n/app_localizations_tr.dart`
 
 ```dart
 'errorDailyLimit'    → 'Günlük hesaplama limitine ulaştınız.'

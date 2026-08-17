@@ -69,8 +69,8 @@ Kullanıcı grafiği sonradan interaktif olarak uzatmak isterse (örn: alış ö
 
 ## İlgili Dosyalar
 
-- `src/Saydin.Services/src/Saydin.Api/Models/Responses/WhatIfResponse.cs`
-- `src/Saydin.Services/src/Saydin.Api/Services/WhatIfCalculator.cs`
-- `src/Saydin.Client/lib/features/what_if/domain/entities/what_if_result.dart`
-- `src/Saydin.Client/lib/features/what_if/data/models/what_if_response_model.dart`
-- `src/Saydin.Client/lib/features/what_if/presentation/widgets/result_chart.dart`
+- `saydin-services/src/Saydin.Api/Models/Responses/WhatIfResponse.cs`
+- `saydin-services/src/Saydin.Api/Services/WhatIfCalculator.cs`
+- `saydin-client/lib/features/what_if/domain/entities/what_if_result.dart`
+- `saydin-client/lib/features/what_if/data/models/what_if_response_model.dart`
+- `saydin-client/lib/features/what_if/presentation/widgets/result_chart.dart`

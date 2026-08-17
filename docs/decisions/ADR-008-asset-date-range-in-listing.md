@@ -94,10 +94,10 @@ N+1 sorgu yerine tek sorgu.
 
 ## İlgili Dosyalar
 
-- `src/Saydin.Services/src/Saydin.Api/Models/Responses/AssetResponse.cs`
-- `src/Saydin.Services/src/Saydin.Api/Repositories/IPriceRepository.cs`
-- `src/Saydin.Services/src/Saydin.Api/Repositories/PriceRepository.cs`
-- `src/Saydin.Services/src/Saydin.Api/Services/IAssetService.cs`
-- `src/Saydin.Services/src/Saydin.Api/Services/AssetService.cs`
-- `src/Saydin.Client/lib/features/what_if/domain/entities/asset.dart`
-- `src/Saydin.Client/lib/features/what_if/data/models/asset_model.dart`
+- `saydin-services/src/Saydin.Api/Models/Responses/AssetResponse.cs`
+- `saydin-services/src/Saydin.Api/Repositories/IPriceRepository.cs`
+- `saydin-services/src/Saydin.Api/Repositories/PriceRepository.cs`
+- `saydin-services/src/Saydin.Api/Services/IAssetService.cs`
+- `saydin-services/src/Saydin.Api/Services/AssetService.cs`
+- `saydin-client/lib/features/what_if/domain/entities/asset.dart`
+- `saydin-client/lib/features/what_if/data/models/asset_model.dart`

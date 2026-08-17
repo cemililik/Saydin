@@ -148,11 +148,11 @@ final range = comparisonDateRange(
 
 | Katman | Dosya |
 |---|---|
-| Backend options | `src/Saydin.Api/Options/PlanOptions.cs` |
-| Backend endpoint | `src/Saydin.Api/Endpoints/AppConfigEndpoints.cs` |
-| Backend DTO | `src/Saydin.Api/Models/Responses/AppConfigResponse.cs` |
-| Flutter entity | `lib/features/config/domain/entities/app_config.dart` |
-| Flutter repository | `lib/features/config/domain/repositories/app_config_repository.dart` |
-| Flutter cubit | `lib/features/config/presentation/cubit/app_config_cubit.dart` |
-| Tarih kısıt utils | `lib/core/utils/date_range_utils.dart` |
-| Context extension | `lib/core/l10n/config_extensions.dart` |
+| Backend options | `saydin-services/src/Saydin.Api/Options/PlanOptions.cs` |
+| Backend endpoint | `saydin-services/src/Saydin.Api/Endpoints/AppConfigEndpoints.cs` |
+| Backend DTO | `saydin-services/src/Saydin.Api/Models/Responses/AppConfigResponse.cs` |
+| Flutter entity | `saydin-client/lib/features/config/domain/entities/app_config.dart` |
+| Flutter repository | `saydin-client/lib/features/config/domain/repositories/app_config_repository.dart` |
+| Flutter cubit | `saydin-client/lib/features/config/presentation/cubit/app_config_cubit.dart` |
+| Tarih kısıt utils | `saydin-client/lib/core/utils/date_range_utils.dart` |
+| Context extension | `saydin-client/lib/core/l10n/config_extensions.dart` |
