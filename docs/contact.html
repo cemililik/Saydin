@@ -1,122 +1,66 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>İletişim — Saydın</title>
-  <meta name="description" content="Saydın ile iletişime geçin. Sorularınız, önerileriniz ve geri bildirimleriniz için.">
+  <meta name="description" content="Saydın beta erişimi, ürün desteği ve geri bildirim için iletişim kanalları.">
+  <meta name="theme-color" content="#0B1D34">
+  <meta name="color-scheme" content="dark">
+  <link rel="canonical" href="https://cemililik.github.io/Saydin/contact.html">
+  <link rel="icon" href="assets/brand/saydin-symbol-fullcolor.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
 </head>
 <body>
-
-<nav class="navbar" role="navigation" aria-label="Ana navigasyon">
-  <div class="container">
-    <a href="index.html" class="nav-brand">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-      Saydın
-    </a>
-    <button class="nav-hamburger" aria-expanded="false" aria-label="Menü">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
-    <ul class="nav-menu">
-      <li><a href="index.html">Ana Sayfa</a></li>
-      <li><a href="support.html">Destek</a></li>
-      <li><a href="contact.html" class="active">İletişim</a></li>
-      <li><a href="privacy-policy.html">Gizlilik</a></li>
-    </ul>
-  </div>
-</nav>
-
-<section class="contact">
-  <div class="container">
-    <div class="contact-header">
-      <h1>İletişim</h1>
-      <p>Sorularınız, önerileriniz veya geri bildirimleriniz mi var? Bize ulaşın.</p>
-    </div>
-
-    <div class="contact-grid">
-      <!-- Form -->
-      <div class="contact-form-card">
-        <form id="contact-form" action="https://formspree.io/f/xzdyekjq" method="POST">
-          <input type="hidden" name="_subject" id="form-subject" value="Saydın Contact Form">
-
-          <div class="form-group">
-            <label for="name">Adınız</label>
-            <input type="text" id="name" name="name" required placeholder="Adınızı girin">
-          </div>
-
-          <div class="form-group">
-            <label for="email">E-posta Adresiniz</label>
-            <input type="email" id="email" name="email" required placeholder="ornek@mail.com">
-          </div>
-
-          <div class="form-group">
-            <label for="subject">Konu</label>
-            <input type="text" id="subject" name="subject" required placeholder="Mesajınızın konusu">
-          </div>
-
-          <div class="form-group">
-            <label for="message">Mesajınız</label>
-            <textarea id="message" name="message" rows="5" required placeholder="Mesajınızı yazın..."></textarea>
-          </div>
-
-          <button type="submit" class="btn btn-primary form-submit">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            Gönder
-          </button>
-
-          <div id="form-status" class="form-status"></div>
-        </form>
+  <a class="skip-link" href="#main-content">Ana içeriğe geç</a>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Ana navigasyon">
+      <div class="container">
+        <a href="index.html" class="nav-brand" aria-label="Saydın ana sayfa"><img src="assets/brand/saydin-logo-horizontal-dark.svg" alt="Saydın" width="305" height="112"></a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Menüyü aç veya kapat"><span class="nav-toggle-lines" aria-hidden="true"></span></button>
+        <ul class="nav-menu" id="primary-navigation">
+          <li><a href="index.html">Ana sayfa</a></li><li><a href="support.html">Destek</a></li><li><a href="contact.html" aria-current="page">İletişim</a></li><li><a href="privacy-policy.html">Gizlilik</a></li><li><a class="nav-cta" href="contact.html?subject=Beta%20eri%C5%9Fimi">Beta erişimi</a></li>
+        </ul>
       </div>
+    </nav>
+  </header>
 
-      <!-- Kanallar -->
-      <div class="contact-channels">
-        <h3>Diğer Kanallar</h3>
-        <div class="channel-list">
-          <a href="https://github.com/cemililik/Saydin.Client/issues" target="_blank" rel="noopener" class="channel-item">
-            <div class="channel-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            </div>
-            <div class="channel-text">
-              <strong>GitHub Issues</strong>
-              <span>Hata bildirimi veya özellik talebi gönderin</span>
-            </div>
-          </a>
+  <main id="main-content">
+    <section class="page-hero" aria-labelledby="page-title">
+      <div class="container-narrow"><a class="back-link" href="index.html">← Ana sayfa</a><h1 id="page-title">İletişim</h1><p>Beta erişimi, ürün desteği veya geri bildirimin için doğru kanalı seç.</p></div>
+    </section>
 
-          <a href="https://github.com/cemililik/Saydin.Client/discussions" target="_blank" rel="noopener" class="channel-item">
-            <div class="channel-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            </div>
-            <div class="channel-text">
-              <strong>GitHub Discussions</strong>
-              <span>Topluluk tartışmalarına katılın, fikir paylaşın</span>
-            </div>
-          </a>
+    <section class="contact-page">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="contact-form-card">
+            <h2>Bize mesaj gönder</h2>
+            <form id="contact-form" action="https://formspree.io/f/xzdyekjq" method="post">
+              <input type="hidden" name="_subject" id="form-subject" value="Saydın iletişim formu">
+              <div class="form-group"><label for="name">Adın</label><input type="text" id="name" name="name" autocomplete="name" maxlength="80" required placeholder="Adını gir"></div>
+              <div class="form-group"><label for="email">E-posta adresin</label><input type="email" id="email" name="email" autocomplete="email" maxlength="160" required placeholder="ornek@eposta.com"></div>
+              <div class="form-group"><label for="subject">Konu</label><input type="text" id="subject" name="subject" maxlength="120" required placeholder="Mesajının konusu"></div>
+              <div class="form-group"><label for="message">Mesajın</label><textarea id="message" name="message" rows="6" maxlength="3000" required placeholder="Nasıl yardımcı olabiliriz?"></textarea></div>
+              <p class="form-note">Gönderdiğin bilgiler Formspree üzerinden Saydın ekibine iletilir. Ayrıntılar için <a href="privacy-policy.html">gizlilik sayfasını</a> inceleyebilirsin.</p>
+              <button type="submit" class="btn btn-primary form-submit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg><span class="button-label">Mesajı gönder</span></button>
+              <div id="form-status" class="form-status" role="status" aria-live="polite" hidden></div>
+            </form>
+          </div>
 
-          <a href="https://github.com/cemililik/Saydin.Client" target="_blank" rel="noopener" class="channel-item">
-            <div class="channel-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+          <aside class="contact-channels" aria-labelledby="channels-title">
+            <h2 id="channels-title">Diğer kanallar</h2>
+            <div class="channel-list">
+              <a href="mailto:iletisim@saydin.app" class="channel-item"><span class="channel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="m4 6 8 6 8-6"/></svg></span><span class="channel-text"><strong>E-posta</strong><span>iletisim@saydin.app</span></span></a>
+              <a href="https://github.com/cemililik/Saydin.Client/issues" target="_blank" rel="noopener noreferrer" class="channel-item"><span class="channel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v5m0 3h.01"/></svg></span><span class="channel-text"><strong>Hata bildirimi</strong><span>GitHub Issues üzerinden teknik kayıt aç</span></span></a>
+              <a href="support.html" class="channel-item"><span class="channel-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.7 9a2.4 2.4 0 1 1 3.8 1.9c-.9.6-1.5 1.1-1.5 2.1m0 3h.01"/></svg></span><span class="channel-text"><strong>Destek merkezi</strong><span>Sık sorulan sorulara hızlıca göz at</span></span></a>
             </div>
-            <div class="channel-text">
-              <strong>GitHub</strong>
-              <span>Kaynak kodu ve proje sayfası</span>
-            </div>
-          </a>
+          </aside>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
+  </main>
 
-<footer class="footer">
-  <div class="container">
-    <div class="footer-bottom" style="margin-top:0; padding-top:0; border-top:none;">
-      <span>&copy; 2025 Saydın. Tüm hakları saklıdır.</span>
-      <span><a href="index.html">Ana Sayfa</a></span>
-    </div>
-  </div>
-</footer>
-
-<script src="js/main.js"></script>
+  <footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><img src="assets/brand/saydin-logo-horizontal-dark.svg" alt="Saydın" width="305" height="112"><p>Geçmişe dönük yatırım senaryolarını sade ve karşılaştırılabilir sonuçlara dönüştürür.</p></div><div class="footer-col"><h2>Ürün</h2><a href="index.html#ozellikler">Özellikler</a><a href="contact.html?subject=Beta%20eri%C5%9Fimi">Beta erişimi</a></div><div class="footer-col"><h2>Yardım</h2><a href="support.html">Destek</a><a href="contact.html">İletişim</a></div><div class="footer-col"><h2>Yasal</h2><a href="privacy-policy.html">Gizlilik</a><a href="terms.html">Kullanım koşulları</a></div></div><div class="footer-bottom"><span>© <span data-current-year>2026</span> Saydın. Tüm hakları saklıdır.</span><span>Yatırım tavsiyesi değildir.</span></div></div></footer>
 </body>
 </html>
