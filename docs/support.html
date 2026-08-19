@@ -1,114 +1,41 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Destek — Saydın</title>
-  <meta name="description" content="Saydın destek sayfası. Sıkça sorulan sorular ve yardım.">
-  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="Saydın kullanımı, hesaplamalar, veri silme ve beta erişimi hakkında sık sorulan sorular.">
+  <meta name="theme-color" content="#0B1D34"><meta name="color-scheme" content="dark">
+  <link rel="canonical" href="https://cemililik.github.io/Saydin/support.html">
+  <link rel="icon" href="assets/brand/saydin-symbol-fullcolor.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css"><script src="js/main.js" defer></script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Ana içeriğe geç</a>
+  <header class="site-header"><nav class="navbar" aria-label="Ana navigasyon"><div class="container">
+    <a href="index.html" class="nav-brand" aria-label="Saydın ana sayfa"><img src="assets/brand/saydin-logo-horizontal-dark.svg" alt="Saydın" width="305" height="112"></a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation" aria-label="Menüyü aç veya kapat"><span class="nav-toggle-lines" aria-hidden="true"></span></button>
+    <ul class="nav-menu" id="primary-navigation"><li><a href="index.html">Ana sayfa</a></li><li><a href="support.html" aria-current="page">Destek</a></li><li><a href="contact.html">İletişim</a></li><li><a href="privacy-policy.html">Gizlilik</a></li><li><a class="nav-cta" href="contact.html?subject=Beta%20eri%C5%9Fimi">Beta erişimi</a></li></ul>
+  </div></nav></header>
 
-<nav class="navbar" role="navigation" aria-label="Ana navigasyon">
-  <div class="container">
-    <a href="index.html" class="nav-brand">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-      Saydın
-    </a>
-    <button class="nav-hamburger" aria-expanded="false" aria-label="Menü">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
-    <ul class="nav-menu">
-      <li><a href="index.html">Ana Sayfa</a></li>
-      <li><a href="support.html" class="active">Destek</a></li>
-      <li><a href="contact.html">İletişim</a></li>
-      <li><a href="privacy-policy.html">Gizlilik</a></li>
-    </ul>
-  </div>
-</nav>
+  <main id="main-content">
+    <section class="page-hero" aria-labelledby="page-title"><div class="container-narrow"><a class="back-link" href="index.html">← Ana sayfa</a><h1 id="page-title">Destek</h1><p>Saydın’ın kullanımı ve veri akışlarıyla ilgili sık sorulan sorular.</p></div></section>
+    <section class="legal-page"><div class="container-narrow">
+      <div class="highlight-box"><p>Aradığın yanıt burada değilse <a href="contact.html">iletişim sayfasından</a> bize ulaşabilir veya teknik bir hata için <a href="https://github.com/cemililik/Saydin.Client/issues" target="_blank" rel="noopener noreferrer">GitHub kaydı</a> açabilirsin.</p></div>
+      <div class="faq-list">
+        <article class="faq-item"><h2>Saydın nedir?</h2><p>Saydın, geçmiş tarihli finansal verilerle “ya o zaman alsaydım?” senaryoları oluşturmanı sağlayan bir simülasyon aracıdır. Geleceğe yönelik tahmin veya yatırım önerisi üretmez.</p></article>
+        <article class="faq-item"><h2>Uygulama şu anda nereden indirilebilir?</h2><p>iOS ve Android sürümleri kontrollü beta aşamasındadır. Public mağaza sayfaları açılana kadar <a href="contact.html?subject=Beta%20eri%C5%9Fimi">beta erişimi isteyebilirsin</a>.</p></article>
+        <article class="faq-item"><h2>Hesap oluşturmam gerekiyor mu?</h2><p>Ad, e-posta veya parola ile hesap açman gerekmez. Hizmetin çalışması için cihazda üretilen takma adlı bir cihaz tanımlayıcısı kullanılır.</p></article>
+        <article class="faq-item"><h2>Hangi hesaplamalar destekleniyor?</h2><p>Tekli yatırım, hedef tutardan ters hesaplama, varlık karşılaştırma, portföy ve düzenli yatırım (DCA) akışları desteklenir. Güncel özellik kapsamı uygulamadaki yapılandırmaya göre değişebilir.</p></article>
+        <article class="faq-item"><h2>Hesaplamalar ne kadar doğru?</h2><p>Sonuçlar geçmiş fiyat verileri ve seçtiğin parametreler üzerinden hesaplanır. Tatil günleri, veri bulunabilirliği, yuvarlama, kur, komisyon ve vergi varsayımları sonucu etkileyebilir. Sonuçlar bilgilendirme amaçlıdır.</p></article>
+        <article class="faq-item"><h2>Enflasyon düzeltmesi nedir?</h2><p>Nominal sonucu, mevcut TÜFE verileri üzerinden enflasyon etkisiyle birlikte değerlendirmeye yardımcı olur. Veri tarihi ve hesaplama kapsamı sonuç ekranında belirtilir.</p></article>
+        <article class="faq-item"><h2>DCA simülasyonu nasıl çalışır?</h2><p>Belirlediğin dönemde haftalık veya aylık düzenli yatırım yapılmış varsayımıyla toplam katkı, ortalama maliyet ve güncel değer hesaplanır. Bu, gerçekleşmiş işlem kaydı değildir.</p></article>
+        <article class="faq-item"><h2>Sonuç kartını paylaşırken ne gönderilir?</h2><p>Paylaşmayı seçersen önizlemede gördüğün görsel ve açıklama sistem paylaşım ekranına aktarılır. Hedef uygulamayı ve alıcıyı sen seçersin; vazgeçebilirsin.</p></article>
+        <article class="faq-item"><h2>Kaydettiğim senaryoları veya hesabı nasıl silerim?</h2><p>Senaryoları uygulama içinden tek tek silebilirsin. Ayarlar bölümündeki hesap silme akışı sunucu isteğini ve cihazdaki uygulama verilerinin temizliğini yönetir. Sorun yaşarsan <a href="mailto:iletisim@saydin.app">iletisim@saydin.app</a> adresine yazabilirsin.</p></article>
+        <article class="faq-item"><h2>Bir hata buldum. Neleri paylaşmalıyım?</h2><p>Uygulama sürümü, cihaz modeli, işletim sistemi ve hatayı oluşturan adımları ekle. Finansal tutar, cihaz kimliği veya paylaşmak istemediğin kişisel bilgileri ekran görüntüsüne dahil etme.</p></article>
+      </div>
+    </div></section>
+  </main>
 
-<main class="legal-page">
-  <div class="container-narrow">
-    <a href="index.html" class="back">&larr; Ana Sayfa</a>
-    <h1>Destek</h1>
-    <p class="updated">Sorularınız ve geri bildirimleriniz için buradayız.</p>
-
-    <div class="highlight-box" style="text-align:center;">
-      <p style="margin-bottom:.75rem;">Bize doğrudan ulaşmak için iletişim formunu kullanabilirsiniz.</p>
-      <a href="contact.html" class="btn btn-primary" style="display:inline-flex;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        İletişime Geç
-      </a>
-    </div>
-
-    <h2>Sıkça Sorulan Sorular</h2>
-
-    <div class="faq-item">
-      <strong>Saydın nedir?</strong>
-      <p>Saydın, "Ya o zaman alsaydım?" sorusuna cevap veren bir finansal simülasyon aracıdır. Geçmiş tarihli fiyat verileriyle yatırım senaryoları oluşturabilirsiniz.</p>
-    </div>
-
-    <div class="faq-item">
-      <strong>Hesap oluşturmam gerekiyor mu?</strong>
-      <p>Hayır. Saydın hesap oluşturma gerektirmez. Cihazınıza özel anonim bir kimlik ile çalışır.</p>
-    </div>
-
-    <div class="faq-item">
-      <strong>Ücretsiz mi?</strong>
-      <p>Evet, Saydın ücretsiz olarak kullanılabilir. Ücretsiz kullanımda günlük hesaplama limiti vardır. Premium abonelik ile bu limitler kaldırılır.</p>
-    </div>
-
-    <div class="faq-item">
-      <strong>Hangi varlık türleri destekleniyor?</strong>
-      <p>Döviz (USD, EUR, GBP), değerli madenler (altın, gümüş), kripto paralar (Bitcoin, Ethereum) ve BIST hisse senetleri desteklenmektedir.</p>
-    </div>
-
-    <div class="faq-item">
-      <strong>Verilerim güvende mi?</strong>
-      <p>Evet. Kişisel bilgilerinizi toplamıyoruz. Detaylar için <a href="privacy-policy.html">Gizlilik Politikası</a> sayfamızı inceleyebilirsiniz.</p>
-    </div>
-
-    <div class="faq-item">
-      <strong>Hesaplamalar ne kadar doğru?</strong>
-      <p>Hesaplamalar geçmiş fiyat verilerine dayanır. Tatil günlerinde en yakın iş günü fiyatı kullanılır. Sonuçlar bilgilendirme amaçlıdır, yatırım tavsiyesi değildir.</p>
-    </div>
-
-    <div class="faq-item">
-      <strong>Enflasyon düzeltmesi nedir?</strong>
-      <p>Nominal getiri yerine reel getiriyi gösterir. TÜFE verileri kullanılarak enflasyonun yatırım getirisine etkisi çıkarılır.</p>
-    </div>
-
-    <div class="faq-item">
-      <strong>DCA (Düzenli Yatırım) simülasyonu nasıl çalışır?</strong>
-      <p>Belirli bir dönemde haftalık veya aylık olarak düzenli yatırım yapsaydınız ne kadar birikecğini hesaplar. Ortalama maliyet, toplam yatırım ve güncel değeri gösterir.</p>
-    </div>
-
-    <div class="faq-item">
-      <strong>Hedef tutara göre hesaplama nedir?</strong>
-      <p>Belirli bir hedef tutara ulaşmak için geçmişte ne kadar yatırım yapmanız gerektiğini tersten hesaplar. Örneğin: "100.000 ₺'ye ulaşmak için 2020'de ne kadar Bitcoin almalıydım?"</p>
-    </div>
-
-    <div class="faq-item">
-      <strong>Verilerimi sildirebilir miyim?</strong>
-      <p>Evet. <a href="contact.html">İletişim sayfamız</a> üzerinden cihaz kimliğinizi içeren bir mesaj göndererek verilerinizin silinmesini talep edebilirsiniz.</p>
-    </div>
-
-    <div class="faq-item">
-      <strong>Bir hata buldum, nasıl bildirebilirim?</strong>
-      <p><a href="https://github.com/cemililik/Saydin.Client/issues" target="_blank" rel="noopener">GitHub Issues</a> sayfasından hata bildirimi oluşturabilir veya <a href="contact.html">iletişim formu</a> ile bize ulaşabilirsiniz.</p>
-    </div>
-  </div>
-</main>
-
-<footer class="footer">
-  <div class="container">
-    <div class="footer-bottom" style="margin-top:0; padding-top:0; border-top:none;">
-      <span>&copy; 2025 Saydın. Tüm hakları saklıdır.</span>
-      <span><a href="index.html">Ana Sayfa</a></span>
-    </div>
-  </div>
-</footer>
-
-<script src="js/main.js"></script>
+  <footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><img src="assets/brand/saydin-logo-horizontal-dark.svg" alt="Saydın" width="305" height="112"><p>Geçmişe dönük yatırım senaryolarını sade ve karşılaştırılabilir sonuçlara dönüştürür.</p></div><div class="footer-col"><h2>Ürün</h2><a href="index.html#ozellikler">Özellikler</a><a href="contact.html?subject=Beta%20eri%C5%9Fimi">Beta erişimi</a></div><div class="footer-col"><h2>Yardım</h2><a href="support.html">Destek</a><a href="contact.html">İletişim</a></div><div class="footer-col"><h2>Yasal</h2><a href="privacy-policy.html">Gizlilik</a><a href="terms.html">Kullanım koşulları</a></div></div><div class="footer-bottom"><span>© <span data-current-year>2026</span> Saydın. Tüm hakları saklıdır.</span><span>Yatırım tavsiyesi değildir.</span></div></div></footer>
 </body>
 </html>
